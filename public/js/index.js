@@ -70,124 +70,141 @@
 "use strict";
 
 
+var _pixi = __webpack_require__(8);
+
+var _pixi2 = _interopRequireDefault(_pixi);
+
+var _p = __webpack_require__(9);
+
+var _p2 = _interopRequireDefault(_p);
+
+var _phaserSplit = __webpack_require__(10);
+
+var _phaserSplit2 = _interopRequireDefault(_phaserSplit);
+
+var _states = __webpack_require__(1);
+
+var states = _interopRequireWildcard(_states);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var config = {
+    width: 800,
+    height: 600,
+    renderer: _phaserSplit2.default.AUTO,
+    antialias: true,
+    multiTexture: true,
+    state: null // { preload: preload, create: create, update: update }
+};
+var game = new _phaserSplit2.default.Game(config);
+
+Object.keys(states).forEach(function (state) {
+    return game.state.add(state, states[state]);
+});
+game.state.start('Boot');
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _boot = __webpack_require__(2);
+
+Object.defineProperty(exports, 'Boot', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_boot).default;
+  }
+});
+
+var _menu = __webpack_require__(11);
+
+Object.defineProperty(exports, 'Menu', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_menu).default;
+  }
+});
+
+var _level = __webpack_require__(12);
+
+Object.defineProperty(exports, 'Level', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_level).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-window.PIXI = __webpack_require__(1);
-window.p2 = __webpack_require__(2);
-window.Phaser = __webpack_require__(3);
+// export default class Boot extends Phaser.State {
 
-var Game = function (_Phaser$Game) {
-    _inherits(Game, _Phaser$Game);
+var Boot = function (_Phaser$State) {
+    _inherits(Boot, _Phaser$State);
 
-    function Game() {
-        _classCallCheck(this, Game);
+    function Boot() {
+        _classCallCheck(this, Boot);
 
-        return _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).call(this, 800, 600, Phaser.AUTO, 'content', { preload: preload, create: create, update: update }));
+        return _possibleConstructorReturn(this, (Boot.__proto__ || Object.getPrototypeOf(Boot)).apply(this, arguments));
     }
 
-    return Game;
-}(Phaser.Game);
+    _createClass(Boot, [{
+        key: 'preload',
+        value: function preload() {
+            // image
+            this.load.image('sky', 'assets/sky.png');
+            this.load.image('ground', 'assets/platform.png');
+            this.load.image('star', 'assets/star.png');
 
-window.game = new Game();
+            // spritesheet
+            this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+            this.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
+        }
+    }, {
+        key: 'create',
+        value: function create() {
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.scale.pageAlignHorizontally = true;
+            this.scale.pageAlignVertically = true;
 
-var platforms;
-var player;
-var cursors;
+            this.state.start('Menu');
+        }
+    }]);
 
-function preload() {
-    game.load.image('sky', 'assets/sky.png');
-    game.load.image('ground', 'assets/platform.png');
-    game.load.image('star', 'assets/star.png');
-    game.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-}
+    return Boot;
+}(Phaser.State);
 
-function create() {
-
-    //  We're going to be using physics, so enable the Arcade Physics system
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-    //  A simple background for our game
-    game.add.sprite(0, 0, 'sky');
-
-    //  The platforms group contains the ground and the 2 ledges we can jump on
-    platforms = game.add.group();
-
-    //  We will enable physics for any object that is created in this group
-    platforms.enableBody = true;
-
-    // Here we create the ground.
-    var ground = platforms.create(0, game.world.height - 64, 'ground');
-
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(2, 2);
-
-    //  This stops it from falling away when you jump on it
-    ground.body.immovable = true;
-
-    //  Now let's create two ledges
-    var ledge = platforms.create(400, 400, 'ground');
-
-    ledge.body.immovable = true;
-
-    ledge = platforms.create(-150, 250, 'ground');
-
-    ledge.body.immovable = true;
-
-    // The player and its settings
-    player = game.add.sprite(32, game.world.height - 150, 'dude');
-
-    //  We need to enable physics on the player
-    game.physics.arcade.enable(player);
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    player.body.bounce.y = 0.2;
-    player.body.gravity.y = 300;
-    player.body.collideWorldBounds = true;
-
-    //  Our two animations, walking left and right.
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
-
-    cursors = game.input.keyboard.createCursorKeys();
-}
-
-function update() {
-    //  Collide the player and the stars with the platforms
-    var hitPlatform = game.physics.arcade.collide(player, platforms);
-
-    //  Reset the players velocity (movement)
-
-    player.body.velocity.x = 0;
-
-    if (cursors.left.isDown) {
-        //  Move to the left
-        player.body.velocity.x = -150;
-
-        player.animations.play('left');
-    } else if (cursors.right.isDown) {
-        //  Move to the right
-        player.body.velocity.x = 150;
-
-        player.animations.play('right');
-    } else {
-        //  Stand still
-        player.animations.stop();
-
-        player.frame = 4;
-    }
-
-    //  Allow the player to jump if they are touching the ground.
-    if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
-        player.body.velocity.y = -350;
-    }
-}
+exports.default = Boot;
 
 /***/ }),
-/* 1 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -7762,7 +7779,7 @@ PIXI.TextureUvs = function()
 }).call(this);
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -21405,7 +21422,7 @@ World.prototype.raycast = function(result, ray){
 });
 
 /***/ }),
-/* 3 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -107721,10 +107738,10 @@ PIXI.canUseNewCanvasBlendModes = function () {
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -107912,6 +107929,203 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(3);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(4);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(5);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Menu = function (_Phaser$State) {
+    _inherits(Menu, _Phaser$State);
+
+    function Menu() {
+        _classCallCheck(this, Menu);
+
+        return _possibleConstructorReturn(this, (Menu.__proto__ || Object.getPrototypeOf(Menu)).apply(this, arguments));
+    }
+
+    _createClass(Menu, [{
+        key: 'create',
+        value: function create() {
+            var button = this.add.button(this.world.centerX - 95, this.world.centerY - 35, 'button', this.actionOnClick, this, 2, 1, 0);
+            // button.onInputOver.add(over, this)
+            // button.onInputOut.add(out, this)
+            // button.onInputUp.add(up, this)
+        }
+    }, {
+        key: 'actionOnClick',
+        value: function actionOnClick() {
+            this.state.start('Level');
+        }
+    }]);
+
+    return Menu;
+}(Phaser.State);
+
+exports.default = Menu;
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Level = function (_Phaser$State) {
+    _inherits(Level, _Phaser$State);
+
+    function Level() {
+        _classCallCheck(this, Level);
+
+        return _possibleConstructorReturn(this, (Level.__proto__ || Object.getPrototypeOf(Level)).apply(this, arguments));
+    }
+
+    _createClass(Level, [{
+        key: 'create',
+        value: function create() {
+
+            this.physics.startSystem(Phaser.Physics.ARCADE);
+
+            // Add back ground
+            this.add.sprite(0, 0, 'sky');
+
+            // Group of ledges
+            this.platforms = this.add.group();
+            this.platforms.enableBody = true; //  We will enable physics
+
+            // Ground
+            var ground = this.platforms.create(0, this.world.height - 64, 'ground');
+            ground.scale.setTo(2, 2); //  Scale it to fit
+            ground.body.immovable = true;
+
+            // Ledges
+            var ledge = this.platforms.create(400, 400, 'ground');
+            ledge.body.immovable = true;
+            // other
+            ledge = this.platforms.create(-150, 250, 'ground');
+            ledge.body.immovable = true;
+
+            // Player
+            this.player = this.game.add.sprite(32, this.game.world.height - 150, 'dude');
+            this.game.physics.arcade.enable(this.player);
+
+            this.player.body.bounce.y = 0.05;
+            this.player.body.gravity.y = 300;
+            this.player.body.collideWorldBounds = true;
+
+            // Animations
+            this.player.animations.add('left', [0, 1, 2, 3], 10, true);
+            this.player.animations.add('right', [5, 6, 7, 8], 10, true);
+
+            // Controlls
+            this.cursors = this.game.input.keyboard.createCursorKeys();
+        }
+    }, {
+        key: 'update',
+        value: function update() {
+            var hitPlatform = this.game.physics.arcade.collide(this.player, this.platforms);
+
+            this.player.body.velocity.x = 0;
+
+            if (this.cursors.left.isDown) //  Move to the left
+                {
+                    this.player.body.velocity.x = -150;
+                    this.player.animations.play('left');
+                } else if (this.cursors.right.isDown) //  Move to the right
+                {
+                    this.player.body.velocity.x = 150;
+                    this.player.animations.play('right');
+                } else //  Stand still
+                {
+                    this.player.animations.stop();
+                    this.player.frame = 4;
+                }
+
+            //  Allow the player to jump if they are touching the ground.
+            if (this.cursors.up.isDown && this.player.body.touching.down && hitPlatform) {
+                this.player.body.velocity.y = -350;
+            }
+        }
+    }]);
+
+    return Level;
+}(Phaser.State);
+
+exports.default = Level;
 
 /***/ })
 /******/ ]);

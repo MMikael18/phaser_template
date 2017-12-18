@@ -1,8 +1,9 @@
 {
-    "name": "xowold",
+    "name": "phaser-ce-temp",
     "version": "0.0.1",
-    "description": "my first socket.io app",
+    "description": "Phaser CE template ES6 whit socket.io node server app and",
     "dependencies": {
+        "expose-loader": "^0.7.4",
         "express": "^4.16.2",
         "phaser-ce": "^2.9.3",
         "socket.io": "^2.0.4"

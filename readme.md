@@ -1,3 +1,5 @@
+Phaser CE template. WIP 0.1
+
 # run watch to client
 npm run watch
 

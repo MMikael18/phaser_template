@@ -1,4 +1,12 @@
+
 export default class Level extends Phaser.State {
+
+    init(test) 
+    {   
+        //alert(test)
+        this.score = 0
+        this.scoreText
+    }
 
     create() 
     {
@@ -38,9 +46,33 @@ export default class Level extends Phaser.State {
 
         // Controlls
         this.cursors = this.game.input.keyboard.createCursorKeys()
+
+        // Stars
+        this.stars = this.game.add.group();
+        this.stars.enableBody = true;
+    
+        //  Here we'll create 12 of them evenly spaced apart
+        for (var i = 0; i < 12; i++)
+        {
+            //  Create a star inside of the 'stars' group
+            let star = this.stars.create(i * 70, 0, 'star');
+                //  Let gravity do its thing
+                star.body.gravity.y = 60;    
+                //  This just gives each star a slightly random bounce value
+                star.body.bounce.y = 0.7 + Math.random() * 0.2;
+        }        
+
+        // UI
+        this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
     }
 
     update() {
+        
+        // collide to starts
+        this.game.physics.arcade.collide(this.stars, this.platforms);
+        this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this);
+        
+        // collide to player
         let hitPlatform = this.game.physics.arcade.collide(this.player, this.platforms)
 
         this.player.body.velocity.x = 0
@@ -70,4 +102,13 @@ export default class Level extends Phaser.State {
 
     }
 
+    // Removes the star from the screen
+    _collectStar (player, star) {        
+        star.kill();    
+
+        this.score += 10;
+        this.scoreText.text = 'Score: ' + this.score;
+    }
+
 }
+//console.log(`${Level}`)

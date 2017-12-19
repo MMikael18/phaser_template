@@ -60,29 +60,56 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _pixi = __webpack_require__(8);
+var _pixi = __webpack_require__(2);
 
 var _pixi2 = _interopRequireDefault(_pixi);
 
-var _p = __webpack_require__(9);
+var _p = __webpack_require__(4);
 
 var _p2 = _interopRequireDefault(_p);
 
-var _phaserSplit = __webpack_require__(10);
+var _phaserSplit = __webpack_require__(6);
 
 var _phaserSplit2 = _interopRequireDefault(_phaserSplit);
 
-var _states = __webpack_require__(1);
+var _states = __webpack_require__(9);
 
 var states = _interopRequireWildcard(_states);
 
@@ -106,102 +133,11 @@ Object.keys(states).forEach(function (state) {
 game.state.start('Boot');
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _boot = __webpack_require__(2);
-
-Object.defineProperty(exports, 'Boot', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_boot).default;
-  }
-});
-
-var _menu = __webpack_require__(11);
-
-Object.defineProperty(exports, 'Menu', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_menu).default;
-  }
-});
-
-var _level = __webpack_require__(12);
-
-Object.defineProperty(exports, 'Level', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_level).default;
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// export default class Boot extends Phaser.State {
-
-var Boot = function (_Phaser$State) {
-    _inherits(Boot, _Phaser$State);
-
-    function Boot() {
-        _classCallCheck(this, Boot);
-
-        return _possibleConstructorReturn(this, (Boot.__proto__ || Object.getPrototypeOf(Boot)).apply(this, arguments));
-    }
-
-    _createClass(Boot, [{
-        key: 'preload',
-        value: function preload() {
-            // image
-            this.load.image('sky', 'assets/sky.png');
-            this.load.image('ground', 'assets/platform.png');
-            this.load.image('star', 'assets/star.png');
-
-            // spritesheet
-            this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
-            this.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
-        }
-    }, {
-        key: 'create',
-        value: function create() {
-            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.scale.pageAlignHorizontally = true;
-            this.scale.pageAlignVertically = true;
-
-            this.state.start('Menu');
-        }
-    }]);
-
-    return Boot;
-}(Phaser.State);
-
-exports.default = Boot;
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(3);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 3 */
@@ -7780,6 +7716,13 @@ PIXI.TextureUvs = function()
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(5);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -21422,7 +21365,14 @@ World.prototype.raycast = function(result, ray){
 });
 
 /***/ }),
-/* 5 */
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(7);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -107738,10 +107688,10 @@ PIXI.canUseNewCanvasBlendModes = function () {
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -107931,52 +107881,102 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(3);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
-
-/***/ }),
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(4);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _boot = __webpack_require__(10);
+
+Object.defineProperty(exports, 'Boot', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_boot).default;
+  }
+});
+
+var _menu = __webpack_require__(11);
+
+Object.defineProperty(exports, 'Menu', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_menu).default;
+  }
+});
+
+var _level = __webpack_require__(12);
+
+Object.defineProperty(exports, 'Level', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_level).default;
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(5);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// export default class Boot extends Phaser.State {
+
+var Boot = function (_Phaser$State) {
+    _inherits(Boot, _Phaser$State);
+
+    function Boot() {
+        _classCallCheck(this, Boot);
+
+        return _possibleConstructorReturn(this, (Boot.__proto__ || Object.getPrototypeOf(Boot)).apply(this, arguments));
+    }
+
+    _createClass(Boot, [{
+        key: 'preload',
+        value: function preload() {
+            // image
+            this.load.image('sky', 'assets/sky.png');
+            this.load.image('ground', 'assets/platform.png');
+            this.load.image('star', 'assets/star.png');
+
+            // spritesheet
+            this.load.spritesheet('dude', 'assets/dude.png', 32, 48);
+            this.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
+        }
+    }, {
+        key: 'create',
+        value: function create() {
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.scale.pageAlignHorizontally = true;
+            this.scale.pageAlignVertically = true;
+
+            this.state.start('Menu');
+        }
+    }]);
+
+    return Boot;
+}(Phaser.State);
+
+exports.default = Boot;
 
 /***/ }),
 /* 11 */
@@ -108017,7 +108017,7 @@ var Menu = function (_Phaser$State) {
     }, {
         key: 'actionOnClick',
         value: function actionOnClick() {
-            this.state.start('Level');
+            this.state.start('Level', true, false, "level 1");
         }
     }]);
 
@@ -108055,6 +108055,13 @@ var Level = function (_Phaser$State) {
     }
 
     _createClass(Level, [{
+        key: 'init',
+        value: function init(test) {
+            //alert(test)
+            this.score = 0;
+            this.scoreText;
+        }
+    }, {
         key: 'create',
         value: function create() {
 
@@ -108093,10 +108100,33 @@ var Level = function (_Phaser$State) {
 
             // Controlls
             this.cursors = this.game.input.keyboard.createCursorKeys();
+
+            // Stars
+            this.stars = this.game.add.group();
+            this.stars.enableBody = true;
+
+            //  Here we'll create 12 of them evenly spaced apart
+            for (var i = 0; i < 12; i++) {
+                //  Create a star inside of the 'stars' group
+                var star = this.stars.create(i * 70, 0, 'star');
+                //  Let gravity do its thing
+                star.body.gravity.y = 60;
+                //  This just gives each star a slightly random bounce value
+                star.body.bounce.y = 0.7 + Math.random() * 0.2;
+            }
+
+            // UI
+            this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
         }
     }, {
         key: 'update',
         value: function update() {
+
+            // collide to starts
+            this.game.physics.arcade.collide(this.stars, this.platforms);
+            this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this);
+
+            // collide to player
             var hitPlatform = this.game.physics.arcade.collide(this.player, this.platforms);
 
             this.player.body.velocity.x = 0;
@@ -108120,10 +108150,23 @@ var Level = function (_Phaser$State) {
                 this.player.body.velocity.y = -350;
             }
         }
+
+        // Removes the star from the screen
+
+    }, {
+        key: '_collectStar',
+        value: function _collectStar(player, star) {
+            star.kill();
+
+            this.score += 10;
+            this.scoreText.text = 'Score: ' + this.score;
+        }
     }]);
 
     return Level;
 }(Phaser.State);
+//console.log(`${Level}`)
+
 
 exports.default = Level;
 

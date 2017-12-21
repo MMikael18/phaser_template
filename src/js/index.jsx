@@ -16,3 +16,4 @@ const game = new Phaser.Game(config)
 
 Object.keys(states).forEach(state => game.state.add(state, states[state]))
 game.state.start('Boot')
+//Object.keys(states).forEach(state => console.log(state))

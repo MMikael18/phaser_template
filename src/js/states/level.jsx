@@ -1,11 +1,13 @@
 
+import Connection from '../modules/connection'
+
 export default class Level extends Phaser.State {
 
     init(test) 
     {   
-        //alert(test)
         this.score = 0
         this.scoreText
+        
     }
 
     create() 
@@ -20,6 +22,7 @@ export default class Level extends Phaser.State {
         this.platforms = this.add.group()
         this.platforms.enableBody = true    //  We will enable physics
 
+        
         // Ground
         let ground = this.platforms.create(0, this.world.height - 64, 'ground')
             ground.scale.setTo(2, 2)       //  Scale it to fit
@@ -48,25 +51,31 @@ export default class Level extends Phaser.State {
         this.cursors = this.game.input.keyboard.createCursorKeys()
 
         // Stars
-        this.stars = this.game.add.group();
-        this.stars.enableBody = true;
+        this.stars = this.game.add.group()
+        this.stars.enableBody = true
     
         //  Here we'll create 12 of them evenly spaced apart
         for (var i = 0; i < 12; i++)
         {
             //  Create a star inside of the 'stars' group
-            let star = this.stars.create(i * 70, 0, 'star');
+            let star = this.stars.create(i * 70, 0, 'star')
                 //  Let gravity do its thing
-                star.body.gravity.y = 60;    
+                star.body.gravity.y = 60
                 //  This just gives each star a slightly random bounce value
-                star.body.bounce.y = 0.7 + Math.random() * 0.2;
+                star.body.bounce.y = 0.7 + Math.random() * 0.2
         }        
 
         // UI
-        this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' })
+
+        // socket io connector
+        this.connect = new Connection({
+            game: this.game            
+        })
     }
 
-    update() {
+    update() 
+    {
         
         // collide to starts
         this.game.physics.arcade.collide(this.stars, this.platforms);
@@ -99,15 +108,14 @@ export default class Level extends Phaser.State {
             this.player.body.velocity.y = -350
         }
 
-
+        //this.connect.jaska();
     }
 
     // Removes the star from the screen
     _collectStar (player, star) {        
-        star.kill();    
-
-        this.score += 10;
-        this.scoreText.text = 'Score: ' + this.score;
+        star.kill()
+        //this.score += 10
+        //this.scoreText.text = 'Score: ' + this.score
     }
 
 }

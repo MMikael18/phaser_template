@@ -11,6 +11,8 @@ export default class Menu extends Phaser.State {
         // button.onInputOver.add(over, this)
         // button.onInputOut.add(out, this)
         // button.onInputUp.add(up, this)
+
+        this.state.start('Level', true, false, "level 1")
     }
 
     actionOnClick () 

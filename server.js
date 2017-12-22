@@ -4,11 +4,9 @@ const http = require('http').Server(app)
 const io = require('socket.io')(http)
 
 app.use(express.static(__dirname + '/public'))
-app.get('/', function(req, res){
-    res.sendFile(__dirname + '/public/index.html') // __dirname + 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html')
 })
-//console.log(__dirname);
-
 
 let allClients = []
 
@@ -19,8 +17,14 @@ io.on('connection', (socket) => {
     socket.on('connectCount', (msg) => {
         io.emit('connectCount', allClients.length)
     })
-    
-    socket.on('disconnect', function() {
+
+/*
+    socket.on('jaska', (msg) => {
+        console.log("jaska")
+    })
+*/
+
+    socket.on('disconnect', () => {
         let i = allClients.indexOf(socket)
         allClients.splice(i, 1)
         io.emit('connectCount', allClients.length)
@@ -28,7 +32,6 @@ io.on('connection', (socket) => {
 
 })
 
-
-http.listen(3000, function(){
+http.listen(3000, () => {
   console.log('listening on *:3000')
 })

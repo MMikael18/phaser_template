@@ -7,12 +7,10 @@ export default class Level extends Phaser.State {
     {   
         this.score = 0
         this.scoreText
-        
     }
 
-    create() 
+    create()
     {
-
         this.physics.startSystem(Phaser.Physics.ARCADE)
         
         // Add back ground
@@ -22,7 +20,6 @@ export default class Level extends Phaser.State {
         this.platforms = this.add.group()
         this.platforms.enableBody = true    //  We will enable physics
 
-        
         // Ground
         let ground = this.platforms.create(0, this.world.height - 64, 'ground')
             ground.scale.setTo(2, 2)       //  Scale it to fit
@@ -36,7 +33,7 @@ export default class Level extends Phaser.State {
             ledge.body.immovable = true
 
         // Player
-        this.player = this.game.add.sprite(32, this.game.world.height - 150, 'dude')
+        this.player = this.game.add.sprite(32, this.game.world.height - 150, 'player')
         this.game.physics.arcade.enable(this.player)
 
         this.player.body.bounce.y = 0.05
@@ -76,10 +73,9 @@ export default class Level extends Phaser.State {
 
     update() 
     {
-        
         // collide to starts
-        this.game.physics.arcade.collide(this.stars, this.platforms);
-        this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this);
+        this.game.physics.arcade.collide(this.stars, this.platforms)
+        this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this)
         
         // collide to player
         let hitPlatform = this.game.physics.arcade.collide(this.player, this.platforms)
@@ -108,14 +104,14 @@ export default class Level extends Phaser.State {
             this.player.body.velocity.y = -350
         }
 
-        //this.connect.jaska();
     }
 
     // Removes the star from the screen
-    _collectStar (player, star) {        
+    _collectStar (player, star) 
+    {        
         star.kill()
-        //this.score += 10
-        //this.scoreText.text = 'Score: ' + this.score
+        this.score += 10
+        this.scoreText.text = 'Score: ' + this.score
     }
 
 }

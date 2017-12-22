@@ -2,13 +2,10 @@ import io from 'socket.io-client'
 
 export default class Connection extends Phaser.Group {
 
-
-    constructor({ game }) {
+    constructor({ game }) 
+    {
         super(game)
         this.game = game
-
-//      const socket = io()
-//      socket.emit('chat message', "client")        
 
         // UI
         this.connect= 0
@@ -22,25 +19,19 @@ export default class Connection extends Phaser.Group {
                 align: 'center'
             })
 
-            //this.add(this.connectText)
-
-
-        const socket = io()
-        
-        socket.emit('connectCount', "client 1")        
+        const socket = io()        
+        socket.emit('connectCount', "client connecting")
+ //       socket.emit('jaska', "client connecting")
         socket.on('connectCount', (msg) => {
             this.connect = msg
             console.log(msg)
         })
-        
+
     }
 
     update() 
     {   
-        //console.log(this.connectText.text)
-        //this.connect += 1        
         this.connectText.text = 'connections: ' + this.connect
     }
 
 }
-;

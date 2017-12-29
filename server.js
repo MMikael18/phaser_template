@@ -11,23 +11,38 @@ app.get('/', (req, res) => {
 let allClients = []
 
 io.on('connection', (socket) => {
-    
-    // Count connections and keep track them
-    allClients.push(socket)    
-    socket.on('connectCount', (msg) => {
-        io.emit('connectCount', allClients.length)
-    })
 
-/*
-    socket.on('jaska', (msg) => {
-        console.log("jaska")
+    // Count connections and keep track them
+    //allClients.push(socket.id)
+
+    socket.on('join-game', (msg) => {
+
+        allClients.push({
+            "id": socket.id,
+            "x": msg.x,
+            "y": msg.y
+        })
+        socket.broadcast.emit(
+            'join-newplayer', {
+                "id": socket.id,
+                "x": msg.x,
+                "y": msg.y
+            }
+        )
+        io.sockets.connected[socket.id].emit(
+            "join-allplayers",allClients
+        )
+
+        io.emit('add-count', allClients.length)
     })
-*/
 
     socket.on('disconnect', () => {
-        let i = allClients.indexOf(socket)
+        let i = allClients.indexOf(socket.id)
         allClients.splice(i, 1)
-        io.emit('connectCount', allClients.length)
+        io.emit('user-disconnect', {
+            "id": socket.id,
+            "count": allClients.length
+        })
     })
 
 })

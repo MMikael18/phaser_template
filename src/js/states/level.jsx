@@ -63,7 +63,8 @@ export default class Level extends Phaser.State {
         }        
 
         // UI
-        this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' })
+        this.scoreText = this.game.add.text(16, 16, 'score: 0', 
+                            { fontSize: '32px', fill: '#000' })
 
         // socket io connector
         this.connect = new Connection({
@@ -73,6 +74,7 @@ export default class Level extends Phaser.State {
 
     update() 
     {
+
         // collide to starts
         this.game.physics.arcade.collide(this.stars, this.platforms)
         this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this)
@@ -99,11 +101,21 @@ export default class Level extends Phaser.State {
         }
     
         //  Allow the player to jump if they are touching the ground.
-        if (this.cursors.up.isDown && this.player.body.touching.down && hitPlatform)
+        if (this.cursors.up.isDown &&
+            this.player.body.touching.down && hitPlatform)
         {
             this.player.body.velocity.y = -350
         }
 
+        // io
+        if(typeof this.lastVelocity !== 'undefined' && this.variable !== null){
+            let nowVelocity = this.player.body.velocity.x + this.player.body.velocity.y
+            if(nowVelocity != this.lastVelocity)
+            {
+                //this.connect.emitPlayerMove()
+            }
+        }
+        this.lastVelocity = this.player.body.velocity.x + this.player.body.velocity.y
     }
 
     // Removes the star from the screen

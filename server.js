@@ -16,23 +16,25 @@ io.on('connection', (socket) => {
     //allClients.push(socket.id)
 
     socket.on('join-game', (msg) => {
-
+        // add new client to array
         allClients.push({
             "id": socket.id,
             "x": msg.x,
             "y": msg.y
         })
-        socket.broadcast.emit(
+         // emit allplayer array to new player only
+         io.sockets.connected[socket.id].emit( 
+            "join-allplayers",allClients
+        )
+        // emit a new player to other cliends
+        socket.broadcast.emit( 
             'join-newplayer', {
                 "id": socket.id,
                 "x": msg.x,
                 "y": msg.y
             }
-        )
-        io.sockets.connected[socket.id].emit(
-            "join-allplayers",allClients
-        )
-
+        )       
+        // emit client numper to all clients
         io.emit('add-count', allClients.length)
     })
 

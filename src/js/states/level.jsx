@@ -38,7 +38,7 @@ export default class Level extends Phaser.State {
         // Player
         this.player = new Player({
             game: this.game,
-            x: 32, 
+            x: 32  * (Math.random() * 10) + 1, 
             y: this.game.world.height - 150,
             asset: 'player'
         })
@@ -61,37 +61,76 @@ export default class Level extends Phaser.State {
         this.scoreText = this.game.add.text(16, 16, 'score: 0', 
                             { fontSize: '32px', fill: '#000' })
 
+
+
+        // otherPlayer
+        this.otherplayers = this.game.add.group()
+        this.game.stage.addChild(this.otherplayers)
+
         // socket io connector
         this.connect = new Connection({
             game: this.game,
-            setclients: (clients) =>{
-                console.log("clients")
-                console.log(clients)
+            join: (pid) => {
+                console.log("join " + pid)
+                return (({ x, y }) => ({ x, y }))(this.player)
             },
-            addnew: (msg) => {
-                console.log("add new player " + msg.id)
+            setclients: (allPlayers, sid) =>{
+                //console.log("clients")
+                console.log(allPlayers)
+                for (let player of allPlayers)
+                {
+                    //console.log(player.id + " x " + sid)
+                    if(player.id != sid)
+                    {
+                        this._addNewPlayer(player.x, player.y, player.id)  
+                    }
+                }
+                
             },
-            leave: (msg) => {
-                console.log("player leaves " + msg.id)
+            addnew: (player) => {
+                console.log("add new player " + player.id)                
+                this._addNewPlayer(player.x, player.y, player.id)
+                console.log(this.otherplayers.children)
+            },
+            leave: (pid) => {
+                console.log("player leaves " + pid)
+                //console.log(this.otherplayers.children)
+                let remove                
+                for (let item of this.otherplayers.children)
+                {
+                    //console.log(item.pid + " = "+ pid)
+                    if(item.pid == pid){
+                        console.log("player leaves find " + pid)                            
+                        //remove = item
+                        this.otherplayers.remove(item)
+                    }
+                }
+                
             },
             
         })
 
-        // otherPlayer
-        this.otherplayers = this.game.add.group()
+        /*
         for (var i = 0; i < 3; i++)
         {
-            let oP = new OtherPlayer({
-                game: this.game,
-                x: i * 32, 
-                y: this.game.world.height - 150,
-                asset: 'player'
-            })
-            this.otherplayers.add(oP)
-        }        
+            this._addNewPlayer(i * 32, this.game.world.height - 150)        
+        }
         this.game.stage.addChild(this.otherplayers)
         
+        */
 
+    }
+
+    _addNewPlayer(x,y,id)
+    {
+        let oP = new OtherPlayer({
+            game: this.game,
+            x: x, 
+            y: y,
+            asset: 'player',
+            pid: id
+        })        
+        this.otherplayers.add(oP)
     }
 
 

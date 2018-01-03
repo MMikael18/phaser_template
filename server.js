@@ -8,24 +8,39 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
 })
 
-let allClients = []
+let allPlayers = []
 
 io.on('connection', (socket) => {
 
     // Count connections and keep track them
     //allClients.push(socket.id)
 
-    socket.on('join-game', (msg) => {
+    socket.on('disconnect', () => {
+        
+        let item = allPlayers.find((a) => {
+            return a.id == socket.id
+        })
+        let i = allPlayers.indexOf(item)
+        allPlayers.splice(i, 1)
+        io.emit('user-disconnect', {
+            "id": socket.id,
+            "count": allPlayers.length
+        })
+    })
+
+    socket.on('join-game', (msg) => {        
         // add new client to array
-        allClients.push({
+        allPlayers.push({
             "id": socket.id,
             "x": msg.x,
             "y": msg.y
         })
-         // emit allplayer array to new player only
-         io.sockets.connected[socket.id].emit( 
-            "join-allplayers",allClients
+
+        // emit allplayer array to new player only
+        io.sockets.connected[socket.id].emit( 
+            "join-allplayers", allPlayers
         )
+
         // emit a new player to other cliends
         socket.broadcast.emit( 
             'join-newplayer', {
@@ -33,19 +48,14 @@ io.on('connection', (socket) => {
                 "x": msg.x,
                 "y": msg.y
             }
-        )       
+        )
+        
         // emit client numper to all clients
-        io.emit('add-count', allClients.length)
+        io.emit('add-count', allPlayers.length)
+
     })
 
-    socket.on('disconnect', () => {
-        let i = allClients.indexOf(socket.id)
-        allClients.splice(i, 1)
-        io.emit('user-disconnect', {
-            "id": socket.id,
-            "count": allClients.length
-        })
-    })
+
 
 })
 

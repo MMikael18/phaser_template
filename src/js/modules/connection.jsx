@@ -2,10 +2,12 @@ import io from 'socket.io-client'
 
 export default class Connection extends Phaser.Group  {
 
-    constructor({ game, setclients, addnew, leave }) 
+    constructor({ game, join, setclients, addnew, leave }) 
     {
         super(game)
         this.game = game
+
+        this.join = join
         this.setclients = setclients
         this.addnew = addnew
         this.leave = leave
@@ -23,35 +25,38 @@ export default class Connection extends Phaser.Group  {
 
         this.socket = io()
         this.socket.on('connect', () => {
-            console.log(this.socket.id)
+            //console.log(this.socket.id)
+            //this.id = this.socket.id
             // when connection is created emit join-game
+            let position = this.join(this.socket.id)
             this.socket.emit("join-game", {
-                "x": 15,
-                "y": 15
+                "x": position.x,
+                "y": position.y
             })
+            //console.log()
         })
 
-        this.socket.on('join-allplayers', (clients) => {
+        this.socket.on('join-allplayers', (allPlayers) => {
             //console.log("allplayers")
             //console.log(clients) 
-            this.setclients(clients)
+            this.setclients(allPlayers,this.socket.id)
         })
 
-        this.socket.on('join-newplayer', (msg) => {
+        this.socket.on('join-newplayer', (player) => {
             //console.log("newplayer")
             //console.log(msg) 
-            this.addnew(msg)
+            this.addnew(player)
         })
         
         //
-        this.socket.on('add-count', (msg) => { 
-            this.connectCount = msg
+        this.socket.on('add-count', (count) => { 
+            this.connectCount = count
         })
 
         this.socket.on('user-disconnect', (msg) => {
             //console.log("disconnect")
             //console.log(msg.id)
-            this.leave(msg)
+            this.leave(msg.id)
             this.connect = msg.count
         })
 

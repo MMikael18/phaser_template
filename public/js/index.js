@@ -111318,6 +111318,7 @@ var Level = function (_Phaser$State) {
     }, {
         key: 'create',
         value: function create() {
+            var _this2 = this;
 
             this.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -111343,7 +111344,7 @@ var Level = function (_Phaser$State) {
             // Player
             this.player = new _player2.default({
                 game: this.game,
-                x: 32,
+                x: 32 * (Math.random() * 10) + 1,
                 y: this.game.world.height - 150,
                 asset: 'player'
             });
@@ -111365,34 +111366,114 @@ var Level = function (_Phaser$State) {
             // UI
             this.scoreText = this.game.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
+            // otherPlayer
+            this.otherplayers = this.game.add.group();
+            this.game.stage.addChild(this.otherplayers);
+
             // socket io connector
             this.connect = new _connection2.default({
                 game: this.game,
-                setclients: function setclients(clients) {
-                    console.log("clients");
-                    console.log(clients);
+                join: function join(pid) {
+                    console.log("join " + pid);
+                    return function (_ref) {
+                        var x = _ref.x,
+                            y = _ref.y;
+                        return { x: x, y: y };
+                    }(_this2.player);
                 },
-                addnew: function addnew(msg) {
-                    console.log("add new player " + msg.id);
+                setclients: function setclients(allPlayers, sid) {
+                    //console.log("clients")
+                    console.log(allPlayers);
+                    var _iteratorNormalCompletion = true;
+                    var _didIteratorError = false;
+                    var _iteratorError = undefined;
+
+                    try {
+                        for (var _iterator = allPlayers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                            var player = _step.value;
+
+                            //console.log(player.id + " x " + sid)
+                            if (player.id != sid) {
+                                _this2._addNewPlayer(player.x, player.y, player.id);
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError = true;
+                        _iteratorError = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion && _iterator.return) {
+                                _iterator.return();
+                            }
+                        } finally {
+                            if (_didIteratorError) {
+                                throw _iteratorError;
+                            }
+                        }
+                    }
                 },
-                leave: function leave(msg) {
-                    console.log("player leaves " + msg.id);
+                addnew: function addnew(player) {
+                    console.log("add new player " + player.id);
+                    _this2._addNewPlayer(player.x, player.y, player.id);
+                    console.log(_this2.otherplayers.children);
+                },
+                leave: function leave(pid) {
+                    console.log("player leaves " + pid);
+                    //console.log(this.otherplayers.children)
+                    var remove = void 0;
+                    var _iteratorNormalCompletion2 = true;
+                    var _didIteratorError2 = false;
+                    var _iteratorError2 = undefined;
+
+                    try {
+                        for (var _iterator2 = _this2.otherplayers.children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                            var item = _step2.value;
+
+                            //console.log(item.pid + " = "+ pid)
+                            if (item.pid == pid) {
+                                console.log("player leaves find " + pid);
+                                //remove = item
+                                _this2.otherplayers.remove(item);
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError2 = true;
+                        _iteratorError2 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                                _iterator2.return();
+                            }
+                        } finally {
+                            if (_didIteratorError2) {
+                                throw _iteratorError2;
+                            }
+                        }
+                    }
                 }
 
             });
 
-            // otherPlayer
-            this.otherplayers = this.game.add.group();
-            for (var i = 0; i < 3; i++) {
-                var oP = new _otherPlayer2.default({
-                    game: this.game,
-                    x: i * 32,
-                    y: this.game.world.height - 150,
-                    asset: 'player'
-                });
-                this.otherplayers.add(oP);
+            /*
+            for (var i = 0; i < 3; i++)
+            {
+                this._addNewPlayer(i * 32, this.game.world.height - 150)        
             }
-            this.game.stage.addChild(this.otherplayers);
+            this.game.stage.addChild(this.otherplayers)
+            
+            */
+        }
+    }, {
+        key: '_addNewPlayer',
+        value: function _addNewPlayer(x, y, id) {
+            var oP = new _otherPlayer2.default({
+                game: this.game,
+                x: x,
+                y: y,
+                asset: 'player',
+                pid: id
+            });
+            this.otherplayers.add(oP);
         }
     }, {
         key: 'update',
@@ -111463,6 +111544,7 @@ var Connection = function (_Phaser$Group) {
 
     function Connection(_ref) {
         var game = _ref.game,
+            join = _ref.join,
             setclients = _ref.setclients,
             addnew = _ref.addnew,
             leave = _ref.leave;
@@ -111472,6 +111554,8 @@ var Connection = function (_Phaser$Group) {
         var _this = _possibleConstructorReturn(this, (Connection.__proto__ || Object.getPrototypeOf(Connection)).call(this, game));
 
         _this.game = game;
+
+        _this.join = join;
         _this.setclients = setclients;
         _this.addnew = addnew;
         _this.leave = leave;
@@ -111486,35 +111570,38 @@ var Connection = function (_Phaser$Group) {
 
         _this.socket = (0, _socket2.default)();
         _this.socket.on('connect', function () {
-            console.log(_this.socket.id);
+            //console.log(this.socket.id)
+            //this.id = this.socket.id
             // when connection is created emit join-game
+            var position = _this.join(_this.socket.id);
             _this.socket.emit("join-game", {
-                "x": 15,
-                "y": 15
+                "x": position.x,
+                "y": position.y
             });
+            //console.log()
         });
 
-        _this.socket.on('join-allplayers', function (clients) {
+        _this.socket.on('join-allplayers', function (allPlayers) {
             //console.log("allplayers")
             //console.log(clients) 
-            _this.setclients(clients);
+            _this.setclients(allPlayers, _this.socket.id);
         });
 
-        _this.socket.on('join-newplayer', function (msg) {
+        _this.socket.on('join-newplayer', function (player) {
             //console.log("newplayer")
             //console.log(msg) 
-            _this.addnew(msg);
+            _this.addnew(player);
         });
 
         //
-        _this.socket.on('add-count', function (msg) {
-            _this.connectCount = msg;
+        _this.socket.on('add-count', function (count) {
+            _this.connectCount = count;
         });
 
         _this.socket.on('user-disconnect', function (msg) {
             //console.log("disconnect")
             //console.log(msg.id)
-            _this.leave(msg);
+            _this.leave(msg.id);
             _this.connect = msg.count;
         });
 
@@ -114780,21 +114867,25 @@ var otherPlayer = function (_Phaser$Sprite) {
         var game = _ref.game,
             x = _ref.x,
             y = _ref.y,
-            asset = _ref.asset;
+            asset = _ref.asset,
+            pid = _ref.pid;
 
         _classCallCheck(this, otherPlayer);
 
         var _this = _possibleConstructorReturn(this, (otherPlayer.__proto__ || Object.getPrototypeOf(otherPlayer)).call(this, game, x, y, asset));
 
         _this.game = game;
+        _this.pid = pid;
 
         // physics
         //this.game.physics.arcade.enable(this)
 
         // settings
-        //this.body.bounce.y = 0.05
+        //this.body.bounce.y =  0.7 + Math.random() * 0.2
         //this.body.gravity.y = 300
         //this.body.collideWorldBounds = true
+
+        _this.alpha = 0.5;
 
         // Animations
         _this.animations.add('left', [0, 1, 2, 3], 10, true);

@@ -111418,7 +111418,7 @@ var Level = function (_Phaser$State) {
                     console.log(_this2.otherplayers.children);
                 },
                 leave: function leave(pid) {
-                    console.log("player leaves " + pid);
+                    //console.log("player leaves " + pid)
                     //console.log(this.otherplayers.children)
                     var remove = void 0;
                     var _iteratorNormalCompletion2 = true;
@@ -111431,9 +111431,9 @@ var Level = function (_Phaser$State) {
 
                             //console.log(item.pid + " = "+ pid)
                             if (item.pid == pid) {
-                                console.log("player leaves find " + pid);
-                                //remove = item
+                                // console.log("player leaves find " + pid)                            
                                 _this2.otherplayers.remove(item);
+                                break;
                             }
                         }
                     } catch (err) {
@@ -111450,18 +111450,42 @@ var Level = function (_Phaser$State) {
                             }
                         }
                     }
+                },
+                playerMove: function playerMove(player) {
+                    var _iteratorNormalCompletion3 = true;
+                    var _didIteratorError3 = false;
+                    var _iteratorError3 = undefined;
+
+                    try {
+                        for (var _iterator3 = _this2.otherplayers.children[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                            var item = _step3.value;
+
+                            if (item.pid == player.id) {
+                                item.setTarget(player.x, player.y);
+                                /*
+                                item.x = player.x
+                                item.y = player.y
+                                */
+                                break;
+                            }
+                        }
+                    } catch (err) {
+                        _didIteratorError3 = true;
+                        _iteratorError3 = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                                _iterator3.return();
+                            }
+                        } finally {
+                            if (_didIteratorError3) {
+                                throw _iteratorError3;
+                            }
+                        }
+                    }
                 }
 
             });
-
-            /*
-            for (var i = 0; i < 3; i++)
-            {
-                this._addNewPlayer(i * 32, this.game.world.height - 150)        
-            }
-            this.game.stage.addChild(this.otherplayers)
-            
-            */
         }
     }, {
         key: '_addNewPlayer',
@@ -111486,12 +111510,17 @@ var Level = function (_Phaser$State) {
             // collide to player
             this.game.physics.arcade.collide(this.player, this.platforms);
 
+            var position = function (_ref2) {
+                var x = _ref2.x,
+                    y = _ref2.y;
+                return { x: x, y: y };
+            }(this.player);
+            this.connect.emitPlayerMove(position);
+
             // io
             if (typeof this.lastVelocity !== 'undefined' && this.variable !== null) {
                 var nowVelocity = this.player.body.velocity.x + this.player.body.velocity.y;
-                if (nowVelocity != this.lastVelocity) {
-                    //this.connect.emitPlayerMove()
-                }
+                if (nowVelocity != this.lastVelocity) {}
             }
             this.lastVelocity = this.player.body.velocity.x + this.player.body.velocity.y;
         }
@@ -111547,7 +111576,8 @@ var Connection = function (_Phaser$Group) {
             join = _ref.join,
             setclients = _ref.setclients,
             addnew = _ref.addnew,
-            leave = _ref.leave;
+            leave = _ref.leave,
+            playerMove = _ref.playerMove;
 
         _classCallCheck(this, Connection);
 
@@ -111559,6 +111589,7 @@ var Connection = function (_Phaser$Group) {
         _this.setclients = setclients;
         _this.addnew = addnew;
         _this.leave = leave;
+        _this.playerMove = playerMove;
 
         // UI
         _this.connectCount = 0;
@@ -111570,26 +111601,19 @@ var Connection = function (_Phaser$Group) {
 
         _this.socket = (0, _socket2.default)();
         _this.socket.on('connect', function () {
-            //console.log(this.socket.id)
-            //this.id = this.socket.id
             // when connection is created emit join-game
             var position = _this.join(_this.socket.id);
             _this.socket.emit("join-game", {
                 "x": position.x,
                 "y": position.y
             });
-            //console.log()
         });
 
         _this.socket.on('join-allplayers', function (allPlayers) {
-            //console.log("allplayers")
-            //console.log(clients) 
             _this.setclients(allPlayers, _this.socket.id);
         });
 
         _this.socket.on('join-newplayer', function (player) {
-            //console.log("newplayer")
-            //console.log(msg) 
             _this.addnew(player);
         });
 
@@ -111599,24 +111623,30 @@ var Connection = function (_Phaser$Group) {
         });
 
         _this.socket.on('user-disconnect', function (msg) {
-            //console.log("disconnect")
-            //console.log(msg.id)
             _this.leave(msg.id);
             _this.connect = msg.count;
         });
 
+        // ------ GAME ACTIONS -------
+
+        _this.socket.on('player-move', function (msg) {
+            _this.playerMove(msg);
+        });
         return _this;
     }
 
     _createClass(Connection, [{
         key: 'emitPlayerMove',
-        value: function emitPlayerMove() {
-            console.log('jaska');
+        value: function emitPlayerMove(position) {
+            this.socket.emit("player-move", {
+                "id": this.socket.id,
+                "x": position.x,
+                "y": position.y
+            });
         }
     }, {
         key: 'update',
         value: function update() {
-            //console.log('update')
             this.connectText.text = this.playerName + ' CC: ' + this.connectCount;
         }
     }]);
@@ -114817,11 +114847,11 @@ var Player = function (_Phaser$Sprite) {
 
             if (this.cursors.left.isDown) //  Move to the left
                 {
-                    this.body.velocity.x = -150;
+                    this.body.velocity.x = -250;
                     this.animations.play('left');
                 } else if (this.cursors.right.isDown) //  Move to the right
                 {
-                    this.body.velocity.x = 150;
+                    this.body.velocity.x = 250;
                     this.animations.play('right');
                 } else //  Stand still
                 {
@@ -114877,8 +114907,14 @@ var otherPlayer = function (_Phaser$Sprite) {
         _this.game = game;
         _this.pid = pid;
 
+        _this.tx = x;
+        _this.ty = y;
+
         // physics
-        //this.game.physics.arcade.enable(this)
+        // this.game.physics.arcade.enable(this)
+        _this.game.stage.disableVisibilityChange = true;
+
+        // this.animations.updateIfVisible = false
 
         // settings
         //this.body.bounce.y =  0.7 + Math.random() * 0.2
@@ -114890,12 +114926,62 @@ var otherPlayer = function (_Phaser$Sprite) {
         // Animations
         _this.animations.add('left', [0, 1, 2, 3], 10, true);
         _this.animations.add('right', [5, 6, 7, 8], 10, true);
+        _this.anim = 5;
+
         return _this;
     }
 
     _createClass(otherPlayer, [{
+        key: 'setTarget',
+        value: function setTarget(tx, ty) {
+            this.tx = tx;
+            this.ty = ty;
+        }
+    }, {
         key: 'update',
-        value: function update() {}
+        value: function update() {
+            if (this.anim > 0) this.anim -= 1;
+
+            if (this.anim == 0) {
+                this.animations.stop();
+                this.frame = 4;
+            }
+
+            if (this.x > this.tx) //  Move to the left
+                {
+                    this.animations.play('left');
+                    this.anim = 4;
+                } else if (this.x < this.tx) //  Move to the right
+                {
+                    this.animations.play('right');
+                    this.anim = 4;
+                }
+            this.x = this.tx;
+            this.y = this.ty;
+
+            // if(this.x != this.tx && this.y != this.tx)
+            // {
+            //     //this.game.physics.arcade.moveToXY(this, this.tx, this.ty, 300, 0)
+            //     //this.body.velocity.x = 0
+            //     //this.body.velocity.y = 0
+            // }
+
+            /*
+            if (this.body.velocity.x < 0) //  Move to the left
+            {
+                this.animations.play('left')
+            }
+            else if (this.body.velocity.x > 0) //  Move to the right
+            {
+                this.animations.play('right')
+            }
+            else //  Stand still
+            {
+                this.animations.stop()
+                this.frame = 4
+            }
+            */
+        }
     }]);
 
     return otherPlayer;

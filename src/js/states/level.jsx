@@ -93,31 +93,35 @@ export default class Level extends Phaser.State {
                 console.log(this.otherplayers.children)
             },
             leave: (pid) => {
-                console.log("player leaves " + pid)
+                //console.log("player leaves " + pid)
                 //console.log(this.otherplayers.children)
                 let remove                
                 for (let item of this.otherplayers.children)
                 {
                     //console.log(item.pid + " = "+ pid)
                     if(item.pid == pid){
-                        console.log("player leaves find " + pid)                            
-                        //remove = item
+                       // console.log("player leaves find " + pid)                            
                         this.otherplayers.remove(item)
+                        break
                     }
                 }
                 
             },
+            playerMove:(player) => {
+                for (let item of this.otherplayers.children)
+                {
+                    if(item.pid == player.id) {
+                        item.setTarget(player.x,player.y)
+                        /*
+                        item.x = player.x
+                        item.y = player.y
+                        */
+                        break                
+                    }
+                }
+            },
             
         })
-
-        /*
-        for (var i = 0; i < 3; i++)
-        {
-            this._addNewPlayer(i * 32, this.game.world.height - 150)        
-        }
-        this.game.stage.addChild(this.otherplayers)
-        
-        */
 
     }
 
@@ -145,12 +149,16 @@ export default class Level extends Phaser.State {
         // collide to player
         this.game.physics.arcade.collide(this.player, this.platforms)
 
+
+        let position = (({ x, y }) => ({ x, y }))(this.player)
+        this.connect.emitPlayerMove(position)
+
         // io
         if(typeof this.lastVelocity !== 'undefined' && this.variable !== null){
             let nowVelocity = this.player.body.velocity.x + this.player.body.velocity.y
             if(nowVelocity != this.lastVelocity)
             {
-                //this.connect.emitPlayerMove()
+                
             }
         }
         this.lastVelocity = this.player.body.velocity.x + this.player.body.velocity.y

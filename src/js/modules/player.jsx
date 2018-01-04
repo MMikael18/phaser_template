@@ -29,12 +29,12 @@ export default class Player extends Phaser.Sprite {
     
         if (this.cursors.left.isDown) //  Move to the left
         {
-            this.body.velocity.x = -150
+            this.body.velocity.x = -250
             this.animations.play('left')
         }
         else if (this.cursors.right.isDown) //  Move to the right
         {
-            this.body.velocity.x = 150
+            this.body.velocity.x = 250
             this.animations.play('right')
         }
         else //  Stand still

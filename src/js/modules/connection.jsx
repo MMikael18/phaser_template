@@ -2,7 +2,7 @@ import io from 'socket.io-client'
 
 export default class Connection extends Phaser.Group  {
 
-    constructor({ game, join, setclients, addnew, leave }) 
+    constructor({ game, join, setclients, addnew, leave, playerMove }) 
     {
         super(game)
         this.game = game
@@ -11,6 +11,7 @@ export default class Connection extends Phaser.Group  {
         this.setclients = setclients
         this.addnew = addnew
         this.leave = leave
+        this.playerMove = playerMove
 
         // UI
         this.connectCount = 0
@@ -25,26 +26,19 @@ export default class Connection extends Phaser.Group  {
 
         this.socket = io()
         this.socket.on('connect', () => {
-            //console.log(this.socket.id)
-            //this.id = this.socket.id
             // when connection is created emit join-game
             let position = this.join(this.socket.id)
             this.socket.emit("join-game", {
                 "x": position.x,
                 "y": position.y
             })
-            //console.log()
         })
 
         this.socket.on('join-allplayers', (allPlayers) => {
-            //console.log("allplayers")
-            //console.log(clients) 
             this.setclients(allPlayers,this.socket.id)
         })
 
         this.socket.on('join-newplayer', (player) => {
-            //console.log("newplayer")
-            //console.log(msg) 
             this.addnew(player)
         })
         
@@ -54,22 +48,28 @@ export default class Connection extends Phaser.Group  {
         })
 
         this.socket.on('user-disconnect', (msg) => {
-            //console.log("disconnect")
-            //console.log(msg.id)
             this.leave(msg.id)
             this.connect = msg.count
         })
 
+        // ------ GAME ACTIONS -------
+
+        this.socket.on('player-move', (msg) => {            
+            this.playerMove(msg)
+        })
     }
 
-    emitPlayerMove()
+    emitPlayerMove(position)
     {
-        console.log('jaska')
+        this.socket.emit("player-move", {
+            "id": this.socket.id,
+            "x": position.x,
+            "y": position.y
+        })
     }
 
-    update() 
-    {   
-        //console.log('update')
+    update()
+    {
         this.connectText.text = this.playerName + ' CC: ' + this.connectCount
     }
 

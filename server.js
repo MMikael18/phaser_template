@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
         })
     })
 
-    socket.on('join-game', (msg) => {        
+    socket.on('join-game', (msg) => {
         // add new client to array
         allPlayers.push({
             "id": socket.id,
@@ -55,7 +55,16 @@ io.on('connection', (socket) => {
 
     })
 
-
+    socket.on('player-move', (msg) => {
+        //console.log(msg)
+        socket.broadcast.emit( 
+            'player-move', {
+                "id": socket.id,
+                "x": msg.x,
+                "y": msg.y
+            }
+        )
+    })
 
 })
 

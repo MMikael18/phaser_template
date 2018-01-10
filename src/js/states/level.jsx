@@ -14,58 +14,33 @@ export default class Level extends Phaser.State {
     create()
     {
 
-        this.physics.startSystem(Phaser.Physics.ARCADE)
+        this.add.tileSprite(0, 0, 1500, 1500, 'ground')
+        this.world.setBounds(0, 0, 1500, 1500)
         
-        // Add back ground
-        this.add.sprite(0, 0, 'sky')
-
-        // Group of ledges
-        this.platforms = this.add.group()
-        this.platforms.enableBody = true    //  We will enable physics
-
-        // Ground
-        let ground = this.platforms.create(0, this.world.height - 64, 'ground')
-            ground.scale.setTo(2, 2)       //  Scale it to fit
-            ground.body.immovable = true
-
-        // Ledges
-        let ledge = this.platforms.create(400, 400, 'ground')
-            ledge.body.immovable = true
-            // other
-            ledge = this.platforms.create(-150, 250, 'ground')    
-            ledge.body.immovable = true
-
+        this.physics.startSystem(Phaser.Physics.P2JS)
+        
         // Player
+        //console.log(this.game)
+        //console.log(this)
         this.player = new Player({
             game: this.game,
-            x: 32  * (Math.random() * 10) + 1, 
-            y: this.game.world.height - 150,
+            x: 700, 
+            y: 400,
             asset: 'player'
         })
-        this.game.stage.addChild(this.player)
-
-        // Stars
-        // this.stars = this.game.add.group()
-        // this.stars.enableBody = true
-    
-        // //  Here we'll create 12 of them evenly spaced apart
-        // for (var i = 0; i < 12; i++)
-        // {   //  Create a star inside of the 'stars' group
-        //     let star = this.stars.create(i * 70, 0, 'star')
-        //         star.body.gravity.y = 60
-        //         //star.body.bounce.y = 0.7 + Math.random() * 0.2
-        //         star.body.bounce.y = 0.7
-        // }        
-
+        this.add.existing(this.player)    
+        this.camera.follow(this.player)
+        
         // UI
-        this.scoreText = this.game.add.text(16, 16, 'score: 0', 
-                            { fontSize: '32px', fill: '#000' })
+        // this.scoreText = this.game.add.text(16, 16, 'score: 0', 
+        //                     { fontSize: '32px', fill: '#000' })
+        // this.scoreText.fixedToCamera = true
 
 
-
+        
         // otherPlayer
         this.otherplayers = this.game.add.group()
-        this.game.stage.addChild(this.otherplayers)
+        this.add.existing(this.otherplayers)
 
         // socket io connector
         this.connect = new Connection({
@@ -112,17 +87,12 @@ export default class Level extends Phaser.State {
                 {
                     if(item.pid == player.id) {
                         item.setTarget(player.x,player.y)
-                        /*
-                        item.x = player.x
-                        item.y = player.y
-                        */
                         break                
                     }
                 }
-            },
-            
+            },    
         })
-
+        
     }
 
     _addNewPlayer(x,y,id)
@@ -137,23 +107,21 @@ export default class Level extends Phaser.State {
         this.otherplayers.add(oP)
     }
 
-
-
     update() 
     {
 
         // collide to starts
         //this.game.physics.arcade.collide(this.stars, this.platforms)
-        this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this)
+        //this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this)
         
         // collide to player
-        this.game.physics.arcade.collide(this.player, this.platforms)
-
+        //this.game.physics.arcade.collide(this.player, this.platforms)
 
         let position = (({ x, y }) => ({ x, y }))(this.player)
         this.connect.emitPlayerMove(position)
 
         // io
+        /*
         if(typeof this.lastVelocity !== 'undefined' && this.variable !== null){
             let nowVelocity = this.player.body.velocity.x + this.player.body.velocity.y
             if(nowVelocity != this.lastVelocity)
@@ -162,6 +130,19 @@ export default class Level extends Phaser.State {
             }
         }
         this.lastVelocity = this.player.body.velocity.x + this.player.body.velocity.y
+        */
+    }
+
+    render() {
+        //this.game.debug.inputInfo(350, 32);
+        //this.game.debug.spriteInfo(this.player, 350, 32);
+        //this.game.debug.cameraInfo(this.stage.game.camera, 32, 32)
+        //this.game.debug.spriteCoords(this.player, 32, 500)
+        
+        // let zone = this.game.camera.deadzone;
+
+        // this.game.context.fillStyle = 'rgba(255,0,0,0.6)';
+        // this.game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
     }
 
     // Removes the star from the screen
@@ -173,4 +154,3 @@ export default class Level extends Phaser.State {
     }
 
 }
-//console.log(`${Level}`)

@@ -13,13 +13,7 @@ export default class otherPlayer extends Phaser.Sprite {
         // physics
         // this.game.physics.arcade.enable(this)
         this.game.stage.disableVisibilityChange = true
-
         // this.animations.updateIfVisible = false
-
-        // settings
-        //this.body.bounce.y =  0.7 + Math.random() * 0.2
-        //this.body.gravity.y = 300
-        //this.body.collideWorldBounds = true
 
         this.alpha = 0.5
 
@@ -57,29 +51,6 @@ export default class otherPlayer extends Phaser.Sprite {
         }
         this.x = this.tx
         this.y = this.ty
-
-        // if(this.x != this.tx && this.y != this.tx)
-        // {
-        //     //this.game.physics.arcade.moveToXY(this, this.tx, this.ty, 300, 0)
-        //     //this.body.velocity.x = 0
-        //     //this.body.velocity.y = 0
-        // }
-        
-        /*
-        if (this.body.velocity.x < 0) //  Move to the left
-        {
-            this.animations.play('left')
-        }
-        else if (this.body.velocity.x > 0) //  Move to the right
-        {
-            this.animations.play('right')
-        }
-        else //  Stand still
-        {
-            this.animations.stop()
-            this.frame = 4
-        }
-        */
 
     }
 

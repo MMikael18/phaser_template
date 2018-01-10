@@ -16,13 +16,14 @@ export default class Connection extends Phaser.Group  {
         // UI
         this.connectCount = 0
         this.connectText = this.game.add.text(
-            this.game.world.width - 150, 
+            this.game.camera.width - 150, 
             16, 'CC: 0', 
             { 
                 font: '13px Verdana',
                 fill: 'white',
                 align: 'center'
             })
+        this.connectText.fixedToCamera = true
 
         this.socket = io()
         this.socket.on('connect', () => {

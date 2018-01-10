@@ -4,16 +4,18 @@ import Phaser from 'expose-loader?Phaser!phaser-ce/build/custom/phaser-split'
 
 import * as states from './states'
 
+let canvas_width = 800  // window.innerWidth * window.devicePixelRatio
+let canvas_height = 800 // window.innerHeight * window.devicePixelRatio
+
 const config = {
-    width: 800,
-    height: 600,
-    renderer: Phaser.AUTO,
+    width: canvas_width,
+    height: canvas_height,
+    renderer: Phaser.CANVAS, // AUTO
     antialias: true,
     multiTexture: true,
     state: null             // { preload: preload, create: create, update: update }
 }
-const game = new Phaser.Game(config)
+let game = new Phaser.Game(config)
 
 Object.keys(states).forEach(state => game.state.add(state, states[state]))
 game.state.start('Boot')
-//Object.keys(states).forEach(state => console.log(state))

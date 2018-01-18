@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -100,7 +100,7 @@ module.exports = g;
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(35);
+exports = module.exports = __webpack_require__(36);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -280,7 +280,7 @@ function localstorage() {
   } catch (e) {}
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
 /* 2 */
@@ -459,15 +459,15 @@ Emitter.prototype.hasListeners = function(event){
  * Module dependencies.
  */
 
-var keys = __webpack_require__(44);
-var hasBinary = __webpack_require__(11);
-var sliceBuffer = __webpack_require__(45);
-var after = __webpack_require__(46);
-var utf8 = __webpack_require__(47);
+var keys = __webpack_require__(45);
+var hasBinary = __webpack_require__(12);
+var sliceBuffer = __webpack_require__(46);
+var after = __webpack_require__(47);
+var utf8 = __webpack_require__(48);
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
-  base64encoder = __webpack_require__(49);
+  base64encoder = __webpack_require__(50);
 }
 
 /**
@@ -525,7 +525,7 @@ var err = { type: 'error', data: 'parser error' };
  * Create a blob api even for blob builder when vendor prefixes exist
  */
 
-var Blob = __webpack_require__(50);
+var Blob = __webpack_require__(51);
 
 /**
  * Encodes a packet.
@@ -1123,6 +1123,57 @@ module.exports = function(a, b){
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var instance = null;
+
+var Config = function () {
+    function Config() {
+        _classCallCheck(this, Config);
+
+        if (!instance) {
+            instance = this;
+        }
+
+        // to test whether we have singleton or not
+        this.time = new Date();
+
+        //let canvas_width = window.innerWidth * window.devicePixelRatio;
+        //let canvas_height = window.innerHeight * window.devicePixelRatio;
+        //let aspect_ratio = canvas_width / canvas_height;
+
+        this.scale = 4;
+        //if (aspect_ratio > 1) 
+        //    this.scale = canvas_height / canvas_height_max;
+
+        return instance;
+    }
+
+    _createClass(Config, [{
+        key: "getScale",
+        value: function getScale() {
+            return this.scale;
+        }
+    }]);
+
+    return Config;
+}();
+
+exports.default = new Config();
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 
 /**
  * Module dependencies.
@@ -1130,9 +1181,9 @@ module.exports = function(a, b){
 
 var debug = __webpack_require__(1)('socket.io-parser');
 var Emitter = __webpack_require__(2);
-var hasBin = __webpack_require__(11);
-var binary = __webpack_require__(38);
-var isBuf = __webpack_require__(12);
+var hasBin = __webpack_require__(12);
+var binary = __webpack_require__(39);
+var isBuf = __webpack_require__(13);
 
 /**
  * Protocol version.
@@ -1526,12 +1577,12 @@ function error() {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(42);
+var hasCORS = __webpack_require__(43);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -1570,7 +1621,7 @@ module.exports = function (opts) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -1733,7 +1784,7 @@ Transport.prototype.onClose = function () {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1923,7 +1974,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 /**
@@ -1968,7 +2019,7 @@ module.exports = function parseuri(str) {
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/* global Blob File */
@@ -1977,7 +2028,7 @@ module.exports = function parseuri(str) {
  * Module requirements.
  */
 
-var isArray = __webpack_require__(37);
+var isArray = __webpack_require__(38);
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
@@ -2037,7 +2088,7 @@ function hasBinary (obj) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -2057,7 +2108,7 @@ function isBuf(obj) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -2065,15 +2116,15 @@ function isBuf(obj) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(40);
-var Socket = __webpack_require__(18);
+var eio = __webpack_require__(41);
+var Socket = __webpack_require__(19);
 var Emitter = __webpack_require__(2);
-var parser = __webpack_require__(6);
-var on = __webpack_require__(19);
-var bind = __webpack_require__(20);
+var parser = __webpack_require__(7);
+var on = __webpack_require__(20);
+var bind = __webpack_require__(21);
 var debug = __webpack_require__(1)('socket.io-client:manager');
-var indexOf = __webpack_require__(17);
-var Backoff = __webpack_require__(55);
+var indexOf = __webpack_require__(18);
+var Backoff = __webpack_require__(56);
 
 /**
  * IE6+ hasOwnProperty
@@ -2636,17 +2687,17 @@ Manager.prototype.onreconnect = function () {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies
  */
 
-var XMLHttpRequest = __webpack_require__(7);
-var XHR = __webpack_require__(43);
-var JSONP = __webpack_require__(51);
-var websocket = __webpack_require__(52);
+var XMLHttpRequest = __webpack_require__(8);
+var XHR = __webpack_require__(44);
+var JSONP = __webpack_require__(52);
+var websocket = __webpack_require__(53);
 
 /**
  * Export transports.
@@ -2696,18 +2747,18 @@ function polling (opts) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(8);
+var Transport = __webpack_require__(9);
 var parseqs = __webpack_require__(4);
 var parser = __webpack_require__(3);
 var inherit = __webpack_require__(5);
-var yeast = __webpack_require__(16);
+var yeast = __webpack_require__(17);
 var debug = __webpack_require__(1)('engine.io-client:polling');
 
 /**
@@ -2721,7 +2772,7 @@ module.exports = Polling;
  */
 
 var hasXHR2 = (function () {
-  var XMLHttpRequest = __webpack_require__(7);
+  var XMLHttpRequest = __webpack_require__(8);
   var xhr = new XMLHttpRequest({ xdomain: false });
   return null != xhr.responseType;
 })();
@@ -2947,7 +2998,7 @@ Polling.prototype.uri = function () {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3022,7 +3073,7 @@ module.exports = yeast;
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 
@@ -3037,7 +3088,7 @@ module.exports = function(arr, obj){
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -3045,11 +3096,11 @@ module.exports = function(arr, obj){
  * Module dependencies.
  */
 
-var parser = __webpack_require__(6);
+var parser = __webpack_require__(7);
 var Emitter = __webpack_require__(2);
-var toArray = __webpack_require__(54);
-var on = __webpack_require__(19);
-var bind = __webpack_require__(20);
+var toArray = __webpack_require__(55);
+var on = __webpack_require__(20);
+var bind = __webpack_require__(21);
 var debug = __webpack_require__(1)('socket.io-client:socket');
 var parseqs = __webpack_require__(4);
 
@@ -3461,7 +3512,7 @@ Socket.prototype.compress = function (compress) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 
@@ -3491,7 +3542,7 @@ function on (obj, ev, fn) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 /**
@@ -3520,25 +3571,25 @@ module.exports = function(obj, fn){
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _pixi = __webpack_require__(22);
+var _pixi = __webpack_require__(23);
 
 var _pixi2 = _interopRequireDefault(_pixi);
 
-var _p = __webpack_require__(24);
+var _p = __webpack_require__(25);
 
 var _p2 = _interopRequireDefault(_p);
 
-var _phaserSplit = __webpack_require__(26);
+var _phaserSplit = __webpack_require__(27);
 
 var _phaserSplit2 = _interopRequireDefault(_phaserSplit);
 
-var _states = __webpack_require__(28);
+var _states = __webpack_require__(29);
 
 var states = _interopRequireWildcard(_states);
 
@@ -3546,17 +3597,19 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var canvas_width = 800; // window.innerWidth * window.devicePixelRatio
-var canvas_height = 800; // window.innerHeight * window.devicePixelRatio
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var config = {
+var canvas_width = window.innerWidth * window.devicePixelRatio;
+var canvas_height = window.innerHeight * window.devicePixelRatio;
+
+var config = _defineProperty({
     width: canvas_width,
     height: canvas_height,
     renderer: _phaserSplit2.default.CANVAS, // AUTO
     antialias: true,
     multiTexture: true,
-    state: null // { preload: preload, create: create, update: update }
-};
+    state: null
+}, 'antialias', false);
 var game = new _phaserSplit2.default.Game(config);
 
 Object.keys(states).forEach(function (state) {
@@ -3564,15 +3617,17 @@ Object.keys(states).forEach(function (state) {
 });
 game.state.start('Boot');
 
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(23);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+//new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', this, transparent, antialias);
 
 /***/ }),
 /* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["PIXI"] = __webpack_require__(24);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -11147,14 +11202,14 @@ PIXI.TextureUvs = function()
 }).call(this);
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(25);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["p2"] = __webpack_require__(26);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var require;var require;/**
@@ -24797,14 +24852,14 @@ World.prototype.raycast = function(result, ray){
 });
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(27);
+/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["Phaser"] = __webpack_require__(28);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -111232,10 +111287,10 @@ PIXI.canUseNewCanvasBlendModes = function () {
 * "What matters in this life is not what we do but what we do for others, the legacy we leave and the imprint we make." - Eric Meyer
 */
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111245,7 +111300,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _boot = __webpack_require__(29);
+var _boot = __webpack_require__(30);
 
 Object.defineProperty(exports, 'Boot', {
   enumerable: true,
@@ -111254,7 +111309,7 @@ Object.defineProperty(exports, 'Boot', {
   }
 });
 
-var _menu = __webpack_require__(30);
+var _menu = __webpack_require__(31);
 
 Object.defineProperty(exports, 'Menu', {
   enumerable: true,
@@ -111263,7 +111318,7 @@ Object.defineProperty(exports, 'Menu', {
   }
 });
 
-var _level = __webpack_require__(31);
+var _level = __webpack_require__(32);
 
 Object.defineProperty(exports, 'Level', {
   enumerable: true,
@@ -111275,17 +111330,23 @@ Object.defineProperty(exports, 'Level', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _config = __webpack_require__(6);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -111296,56 +111357,59 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // export default class Boot extends Phaser.State {
 
 var Boot = function (_Phaser$State) {
-    _inherits(Boot, _Phaser$State);
+        _inherits(Boot, _Phaser$State);
 
-    function Boot() {
-        _classCallCheck(this, Boot);
+        function Boot() {
+                _classCallCheck(this, Boot);
 
-        return _possibleConstructorReturn(this, (Boot.__proto__ || Object.getPrototypeOf(Boot)).apply(this, arguments));
-    }
-
-    _createClass(Boot, [{
-        key: 'preload',
-        value: function preload() {
-            // image
-            this.load.image('ground', 'assets/ground.png');
-            //this.load.image('ground', 'assets/platform.png')
-            this.load.image('star', 'assets/star.png');
-            // spritesheet
-            this.load.spritesheet('player', 'assets/dude.png', 32, 48);
-            this.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
+                return _possibleConstructorReturn(this, (Boot.__proto__ || Object.getPrototypeOf(Boot)).apply(this, arguments));
         }
-    }, {
-        key: 'create',
-        value: function create() {
-            //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-            //this.scale.pageAlignHorizontally = true
-            //this.scale.pageAlignVertically = true
-            //this.scale.setScreenSize( true )
-            //this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
-            //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-            //this.game.scale.refresh()
 
-            //let canvas_width = window.innerWidth * window.devicePixelRatio;
-            //let canvas_height = window.innerHeight * window.devicePixelRatio;
-            //let aspect_ratio = canvas_width / canvas_height;
-            //if (aspect_ratio > 1) scale_ratio = canvas_height / canvas_height_max;
-            //else scale_ratio = canvas_width / canvas_width_max;
+        _createClass(Boot, [{
+                key: 'preload',
+                value: function preload() {
+                        // image
+                        this.load.spritesheet('ground', 'assets/ground.png', 32, 32);
 
-            //this.ball = game.add.sprite((game.world.centerX), game.world.centerY, 'ball');
-            //this.ball.scale.set(scale_ratio);
+                        //this.load.image('ground', 'assets/platform.png')
+                        this.load.image('star', 'assets/star.png');
 
-            this.state.start('Menu');
-        }
-    }]);
+                        // spritesheet
+                        this.load.spritesheet('player', 'assets/dude.png', 16, 16);
+                        this.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
+                }
+        }, {
+                key: 'create',
+                value: function create() {
+                        //console.log(config.getScale())
+                        //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+                        //this.scale.pageAlignHorizontally = true
+                        //this.scale.pageAlignVertically = true
+                        //this.scale.setScreenSize( true )
+                        //this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+                        //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+                        //this.game.scale.refresh()
 
-    return Boot;
+                        //let canvas_width = window.innerWidth * window.devicePixelRatio;
+                        //let canvas_height = window.innerHeight * window.devicePixelRatio;
+                        //let aspect_ratio = canvas_width / canvas_height;
+                        //if (aspect_ratio > 1) scale_ratio = canvas_height / canvas_height_max;
+                        //else scale_ratio = canvas_width / canvas_width_max;
+
+                        //this.ball = game.add.sprite((game.world.centerX), game.world.centerY, 'ball');
+                        //this.ball.scale.set(scale_ratio);
+
+                        this.state.start('Menu');
+                }
+        }]);
+
+        return Boot;
 }(Phaser.State);
 
 exports.default = Boot;
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111395,7 +111459,7 @@ var Menu = function (_Phaser$State) {
 exports.default = Menu;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111407,15 +111471,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _connection = __webpack_require__(32);
+var _randomSeed = __webpack_require__(59);
+
+var _randomSeed2 = _interopRequireDefault(_randomSeed);
+
+var _config = __webpack_require__(6);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _connection = __webpack_require__(33);
 
 var _connection2 = _interopRequireDefault(_connection);
 
-var _player = __webpack_require__(56);
+var _player = __webpack_require__(57);
 
 var _player2 = _interopRequireDefault(_player);
 
-var _otherPlayer = __webpack_require__(57);
+var _otherPlayer = __webpack_require__(58);
 
 var _otherPlayer2 = _interopRequireDefault(_otherPlayer);
 
@@ -111441,34 +111513,62 @@ var Level = function (_Phaser$State) {
         value: function init(test) {
             this.score = 0;
             this.scoreText;
+
+            this.gameWidth = 1920;
+            this.gameHeight = 1080;
+        }
+    }, {
+        key: 'createGround',
+        value: function createGround() {
+            var seed = 'My Secret String Value';
+            var rand4 = _randomSeed2.default.create(seed);
+            var rand5 = new _randomSeed2.default(seed);
+            var rand6 = (0, _randomSeed2.default)(seed);
+
+            console.log(rand4(100));
+            console.log(rand4(100));
+            console.log(rand4(100));
+            console.log(rand4(100));
+
+            var size = 32 * _config2.default.scale;
+            var vert = parseInt(this.gameWidth / size);
+            var hort = parseInt(this.gameHeight / size);
+
+            for (var x = 0; x < vert; x++) {
+                var xp = parseInt(x) * size;
+                for (var y = 0; y < hort; y++) {
+                    var _x = this.add.sprite(xp, y * size, 'ground');
+                    _x.scale.setTo(_config2.default.scale);
+
+                    var r = Math.floor(Math.random() * 10 + 1);
+                    _x.frame = r > 3 ? 3 : r;
+                }
+            }
         }
     }, {
         key: 'create',
         value: function create() {
             var _this2 = this;
 
-            this.add.tileSprite(0, 0, 1500, 1500, 'ground');
-            this.world.setBounds(0, 0, 1500, 1500);
+            //console.log(config.getScale())
 
-            this.physics.startSystem(Phaser.Physics.P2JS);
+            this.createGround();
+
+            //this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, 'ground', 2)
+
+            this.world.setBounds(0, 0, this.gameWidth, this.gameHeight);
+
+            //this.physics.startSystem(Phaser.Physics.P2JS)
 
             // Player
-            //console.log(this.game)
-            //console.log(this)
             this.player = new _player2.default({
                 game: this.game,
-                x: 700,
-                y: 400,
+                x: this.gameWidth / 2,
+                y: this.gameHeight / 2,
                 asset: 'player'
             });
             this.add.existing(this.player);
             this.camera.follow(this.player);
-
-            // UI
-            // this.scoreText = this.game.add.text(16, 16, 'score: 0', 
-            //                     { fontSize: '32px', fill: '#000' })
-            // this.scoreText.fixedToCamera = true
-
 
             // otherPlayer
             this.otherplayers = this.game.add.group();
@@ -111478,7 +111578,6 @@ var Level = function (_Phaser$State) {
             this.connect = new _connection2.default({
                 game: this.game,
                 join: function join(pid) {
-                    console.log("join " + pid);
                     return function (_ref) {
                         var x = _ref.x,
                             y = _ref.y;
@@ -111486,8 +111585,6 @@ var Level = function (_Phaser$State) {
                     }(_this2.player);
                 },
                 setclients: function setclients(allPlayers, sid) {
-                    //console.log("clients")
-                    console.log(allPlayers);
                     var _iteratorNormalCompletion = true;
                     var _didIteratorError = false;
                     var _iteratorError = undefined;
@@ -111496,7 +111593,6 @@ var Level = function (_Phaser$State) {
                         for (var _iterator = allPlayers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                             var player = _step.value;
 
-                            //console.log(player.id + " x " + sid)
                             if (player.id != sid) {
                                 _this2._addNewPlayer(player.x, player.y, player.id);
                             }
@@ -111517,13 +111613,9 @@ var Level = function (_Phaser$State) {
                     }
                 },
                 addnew: function addnew(player) {
-                    console.log("add new player " + player.id);
                     _this2._addNewPlayer(player.x, player.y, player.id);
-                    console.log(_this2.otherplayers.children);
                 },
                 leave: function leave(pid) {
-                    //console.log("player leaves " + pid)
-                    //console.log(this.otherplayers.children)
                     var remove = void 0;
                     var _iteratorNormalCompletion2 = true;
                     var _didIteratorError2 = false;
@@ -111533,9 +111625,7 @@ var Level = function (_Phaser$State) {
                         for (var _iterator2 = _this2.otherplayers.children[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                             var item = _step2.value;
 
-                            //console.log(item.pid + " = "+ pid)
                             if (item.pid == pid) {
-                                // console.log("player leaves find " + pid)                            
                                 _this2.otherplayers.remove(item);
                                 break;
                             }
@@ -111565,7 +111655,7 @@ var Level = function (_Phaser$State) {
                             var item = _step3.value;
 
                             if (item.pid == player.id) {
-                                item.setTarget(player.x, player.y);
+                                item.moveTo(player.x, player.y);
                                 break;
                             }
                         }
@@ -111587,6 +111677,27 @@ var Level = function (_Phaser$State) {
             });
         }
     }, {
+        key: 'update',
+        value: function update() {
+            var _this3 = this;
+
+            // collide to starts
+            //this.game.physics.arcade.collide(this.stars, this.platforms)
+            //this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this)
+
+            // collide to player
+            //this.game.physics.arcade.collide(this.player, this.platforms)
+
+            this.player.moving(function () {
+                var position = function (_ref2) {
+                    var x = _ref2.x,
+                        y = _ref2.y;
+                    return { x: x, y: y };
+                }(_this3.player);
+                _this3.connect.emitPlayerMove(position);
+            });
+        }
+    }, {
         key: '_addNewPlayer',
         value: function _addNewPlayer(x, y, id) {
             var oP = new _otherPlayer2.default({
@@ -111598,49 +111709,6 @@ var Level = function (_Phaser$State) {
             });
             this.otherplayers.add(oP);
         }
-    }, {
-        key: 'update',
-        value: function update() {
-
-            // collide to starts
-            //this.game.physics.arcade.collide(this.stars, this.platforms)
-            //this.game.physics.arcade.overlap(this.player, this.stars, this._collectStar, null, this)
-
-            // collide to player
-            //this.game.physics.arcade.collide(this.player, this.platforms)
-
-            var position = function (_ref2) {
-                var x = _ref2.x,
-                    y = _ref2.y;
-                return { x: x, y: y };
-            }(this.player);
-            this.connect.emitPlayerMove(position);
-
-            // io
-            /*
-            if(typeof this.lastVelocity !== 'undefined' && this.variable !== null){
-                let nowVelocity = this.player.body.velocity.x + this.player.body.velocity.y
-                if(nowVelocity != this.lastVelocity)
-                {
-                    
-                }
-            }
-            this.lastVelocity = this.player.body.velocity.x + this.player.body.velocity.y
-            */
-        }
-    }, {
-        key: 'render',
-        value: function render() {}
-        //this.game.debug.inputInfo(350, 32);
-        //this.game.debug.spriteInfo(this.player, 350, 32);
-        //this.game.debug.cameraInfo(this.stage.game.camera, 32, 32)
-        //this.game.debug.spriteCoords(this.player, 32, 500)
-
-        // let zone = this.game.camera.deadzone;
-
-        // this.game.context.fillStyle = 'rgba(255,0,0,0.6)';
-        // this.game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
-
 
         // Removes the star from the screen
 
@@ -111651,15 +111719,33 @@ var Level = function (_Phaser$State) {
             this.score += 10;
             this.scoreText.text = 'Score: ' + this.score;
         }
+    }, {
+        key: 'render',
+        value: function render() {
+            //this.game.debug.inputInfo(350, 32);
+            //this.game.debug.spriteInfo(this.player, 350, 32);
+            //this.game.debug.cameraInfo(this.stage.game.camera, 32, 32)
+            this.game.debug.spriteCoords(this.player, 32, Number(this.game.camera.height) - 150);
+
+            // let zone = this.game.camera.deadzone;
+            // this.game.context.fillStyle = 'rgba(255,0,0,0.6)';
+            // this.game.context.fillRect(zone.x, zone.y, zone.width, zone.height);
+        }
     }]);
 
     return Level;
 }(Phaser.State);
 
+// UI
+// this.scoreText = this.game.add.text(16, 16, 'score: 0', 
+//                     { fontSize: '32px', fill: '#000' })
+// this.scoreText.fixedToCamera = true
+
+
 exports.default = Level;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -111671,7 +111757,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _socket = __webpack_require__(33);
+var _socket = __webpack_require__(34);
 
 var _socket2 = _interopRequireDefault(_socket);
 
@@ -111773,7 +111859,7 @@ var Connection = function (_Phaser$Group) {
 exports.default = Connection;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -111781,9 +111867,9 @@ exports.default = Connection;
  * Module dependencies.
  */
 
-var url = __webpack_require__(34);
-var parser = __webpack_require__(6);
-var Manager = __webpack_require__(13);
+var url = __webpack_require__(35);
+var parser = __webpack_require__(7);
+var Manager = __webpack_require__(14);
 var debug = __webpack_require__(1)('socket.io-client');
 
 /**
@@ -111868,12 +111954,12 @@ exports.connect = lookup;
  * @api public
  */
 
-exports.Manager = __webpack_require__(13);
-exports.Socket = __webpack_require__(18);
+exports.Manager = __webpack_require__(14);
+exports.Socket = __webpack_require__(19);
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -111881,7 +111967,7 @@ exports.Socket = __webpack_require__(18);
  * Module dependencies.
  */
 
-var parseuri = __webpack_require__(10);
+var parseuri = __webpack_require__(11);
 var debug = __webpack_require__(1)('socket.io-client:url');
 
 /**
@@ -111955,7 +112041,7 @@ function url (uri, loc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -111971,7 +112057,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(36);
+exports.humanize = __webpack_require__(37);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -112163,7 +112249,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 /**
@@ -112321,7 +112407,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -112332,7 +112418,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -112341,8 +112427,8 @@ module.exports = Array.isArray || function (arr) {
  * Module requirements
  */
 
-var isArray = __webpack_require__(39);
-var isBuf = __webpack_require__(12);
+var isArray = __webpack_require__(40);
+var isBuf = __webpack_require__(13);
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
 var withNativeFile = typeof global.File === 'function' || toString.call(global.File) === '[object FileConstructor]';
@@ -112480,7 +112566,7 @@ exports.removeBlobs = function(data, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -112491,11 +112577,11 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(41);
+module.exports = __webpack_require__(42);
 
 /**
  * Exports parser
@@ -112507,19 +112593,19 @@ module.exports.parser = __webpack_require__(3);
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies.
  */
 
-var transports = __webpack_require__(14);
+var transports = __webpack_require__(15);
 var Emitter = __webpack_require__(2);
 var debug = __webpack_require__(1)('engine.io-client:socket');
-var index = __webpack_require__(17);
+var index = __webpack_require__(18);
 var parser = __webpack_require__(3);
-var parseuri = __webpack_require__(10);
+var parseuri = __webpack_require__(11);
 var parseqs = __webpack_require__(4);
 
 /**
@@ -112653,8 +112739,8 @@ Socket.protocol = parser.protocol; // this is an int
  */
 
 Socket.Socket = Socket;
-Socket.Transport = __webpack_require__(8);
-Socket.transports = __webpack_require__(14);
+Socket.Transport = __webpack_require__(9);
+Socket.transports = __webpack_require__(15);
 Socket.parser = __webpack_require__(3);
 
 /**
@@ -113257,7 +113343,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 
@@ -113280,15 +113366,15 @@ try {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module requirements.
  */
 
-var XMLHttpRequest = __webpack_require__(7);
-var Polling = __webpack_require__(15);
+var XMLHttpRequest = __webpack_require__(8);
+var Polling = __webpack_require__(16);
 var Emitter = __webpack_require__(2);
 var inherit = __webpack_require__(5);
 var debug = __webpack_require__(1)('engine.io-client:polling-xhr');
@@ -113700,7 +113786,7 @@ function unloadHandler () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 
@@ -113725,7 +113811,7 @@ module.exports = Object.keys || function keys (obj){
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports) {
 
 /**
@@ -113760,7 +113846,7 @@ module.exports = function(arraybuffer, start, end) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = after
@@ -113794,7 +113880,7 @@ function noop() {}
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -114052,10 +114138,10 @@ function noop() {}
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(48)(module), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)(module), __webpack_require__(0)))
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -114083,7 +114169,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 /*
@@ -114156,7 +114242,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -114259,7 +114345,7 @@ module.exports = (function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -114267,7 +114353,7 @@ module.exports = (function() {
  * Module requirements.
  */
 
-var Polling = __webpack_require__(15);
+var Polling = __webpack_require__(16);
 var inherit = __webpack_require__(5);
 
 /**
@@ -114497,24 +114583,24 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
  * Module dependencies.
  */
 
-var Transport = __webpack_require__(8);
+var Transport = __webpack_require__(9);
 var parser = __webpack_require__(3);
 var parseqs = __webpack_require__(4);
 var inherit = __webpack_require__(5);
-var yeast = __webpack_require__(16);
+var yeast = __webpack_require__(17);
 var debug = __webpack_require__(1)('engine.io-client:websocket');
 var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(53);
+    NodeWebSocket = __webpack_require__(54);
   } catch (e) { }
 }
 
@@ -114790,13 +114876,13 @@ WS.prototype.check = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = toArray
@@ -114815,7 +114901,7 @@ function toArray(list, index) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 
@@ -114906,7 +114992,7 @@ Backoff.prototype.setJitter = function(jitter){
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -114917,6 +115003,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _config = __webpack_require__(6);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -114939,12 +115031,11 @@ var Player = function (_Phaser$Sprite) {
 
         _this.game = game;
 
+        _this.scale.setTo(_config2.default.scale);
         // physics
         _this.game.physics.arcade.enable(_this);
 
-        // settings
-        //this.body.bounce.y = 0.05
-        //this.body.gravity.y = 300
+        // settings        
         _this.body.collideWorldBounds = true;
 
         // Animations
@@ -114953,6 +115044,15 @@ var Player = function (_Phaser$Sprite) {
 
         // Controlls
         _this.cursors = _this.game.input.keyboard.createCursorKeys();
+        _this.wasd = {
+            up: _this.game.input.keyboard.addKey(Phaser.Keyboard.W),
+            down: _this.game.input.keyboard.addKey(Phaser.Keyboard.S),
+            left: _this.game.input.keyboard.addKey(Phaser.Keyboard.A),
+            right: _this.game.input.keyboard.addKey(Phaser.Keyboard.D)
+        };
+
+        _this.lookDirection = "LEFT";
+        //console.log(this.wasd.up)
         return _this;
     }
 
@@ -114963,27 +115063,41 @@ var Player = function (_Phaser$Sprite) {
             this.body.velocity.x = 0;
             this.body.velocity.y = 0;
 
-            if (this.cursors.left.isDown) //  Move to the left
-                {
-                    this.body.velocity.x = -250;
-                    this.animations.play('left');
-                } else if (this.cursors.right.isDown) //  Move to the right
-                {
-                    this.body.velocity.x = 250;
-                    this.animations.play('right');
-                }
+            if (this.cursors.left.isDown || this.wasd.left.isDown) {
+                this.body.velocity.x = -250;
+                this.animations.play('left');
+                this.lookDirection = "LEFT";
+            } else if (this.cursors.right.isDown || this.wasd.right.isDown) {
+                this.body.velocity.x = 250;
+                this.animations.play('right');
+                this.lookDirection = "RIGHT";
+            }
 
-            if (this.cursors.up.isDown) {
+            if (this.cursors.up.isDown || this.wasd.up.isDown) {
                 this.body.velocity.y = -250;
-            } else if (this.cursors.down.isDown) {
+            } else if (this.cursors.down.isDown || this.wasd.down.isDown) {
                 this.body.velocity.y = 250;
+            }
+
+            if (this.lookDirection == "RIGHT") {
+                this.animations.play('right');
+            } else if (this.lookDirection == "LEFT") {
+                this.animations.play('left');
             }
 
             if (this.body.velocity.x == 0 && this.body.velocity.y == 0) //  Stand still
                 {
                     this.animations.stop();
                     this.frame = 4;
+
+                    this.x = parseInt(this.x);
+                    this.y = parseInt(this.y);
                 }
+        }
+    }, {
+        key: 'moving',
+        value: function moving(call) {
+            if (!this.body.velocity.isZero()) call();
         }
     }]);
 
@@ -114993,7 +115107,7 @@ var Player = function (_Phaser$Sprite) {
 exports.default = Player;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115032,7 +115146,7 @@ var otherPlayer = function (_Phaser$Sprite) {
         _this.ty = y;
 
         // physics
-        // this.game.physics.arcade.enable(this)
+        _this.game.physics.arcade.enable(_this);
         _this.game.stage.disableVisibilityChange = true;
         // this.animations.updateIfVisible = false
 
@@ -115047,15 +115161,25 @@ var otherPlayer = function (_Phaser$Sprite) {
     }
 
     _createClass(otherPlayer, [{
-        key: 'setTarget',
-        value: function setTarget(tx, ty) {
+        key: 'fire',
+        value: function fire(call) {
+            if (call && typeof call === "function") {
+                call();
+            }
+        }
+    }, {
+        key: 'moveTo',
+        value: function moveTo(tx, ty) {
             this.tx = tx;
             this.ty = ty;
         }
     }, {
         key: 'update',
         value: function update() {
+
             if (this.anim > 0) this.anim -= 1;
+
+            var animRun = false;
 
             if (this.anim == 0) {
                 this.animations.stop();
@@ -115066,11 +115190,22 @@ var otherPlayer = function (_Phaser$Sprite) {
                 {
                     this.animations.play('left');
                     this.anim = 4;
+                    animRun = true;
                 } else if (this.x < this.tx) //  Move to the right
                 {
                     this.animations.play('right');
                     this.anim = 4;
+                    animRun = true;
                 }
+
+            if (!animRun && this.ty > this.y) {
+                this.animations.play('right');
+                this.anim = 4;
+            } else if (!animRun && this.ty < this.y) {
+                this.animations.play('left');
+                this.anim = 4;
+            }
+
             this.x = this.tx;
             this.y = this.ty;
         }
@@ -115080,6 +115215,314 @@ var otherPlayer = function (_Phaser$Sprite) {
 }(Phaser.Sprite);
 
 exports.default = otherPlayer;
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * random-seed
+ * https://github.com/skratchdot/random-seed
+ *
+ * This code was originally written by Steve Gibson and can be found here:
+ *
+ * https://www.grc.com/otg/uheprng.htm
+ *
+ * It was slightly modified for use in node, to pass jshint, and a few additional
+ * helper functions were added.
+ *
+ * Copyright (c) 2013 skratchdot
+ * Dual Licensed under the MIT license and the original GRC copyright/license
+ * included below.
+ */
+/*	============================================================================
+									Gibson Research Corporation
+				UHEPRNG - Ultra High Entropy Pseudo-Random Number Generator
+	============================================================================
+	LICENSE AND COPYRIGHT:  THIS CODE IS HEREBY RELEASED INTO THE PUBLIC DOMAIN
+	Gibson Research Corporation releases and disclaims ALL RIGHTS AND TITLE IN
+	THIS CODE OR ANY DERIVATIVES. Anyone may be freely use it for any purpose.
+	============================================================================
+	This is GRC's cryptographically strong PRNG (pseudo-random number generator)
+	for JavaScript. It is driven by 1536 bits of entropy, stored in an array of
+	48, 32-bit JavaScript variables.  Since many applications of this generator,
+	including ours with the "Off The Grid" Latin Square generator, may require
+	the deteriministic re-generation of a sequence of PRNs, this PRNG's initial
+	entropic state can be read and written as a static whole, and incrementally
+	evolved by pouring new source entropy into the generator's internal state.
+	----------------------------------------------------------------------------
+	ENDLESS THANKS are due Johannes Baagoe for his careful development of highly
+	robust JavaScript implementations of JS PRNGs.  This work was based upon his
+	JavaScript "Alea" PRNG which is based upon the extremely robust Multiply-
+	With-Carry (MWC) PRNG invented by George Marsaglia. MWC Algorithm References:
+	http://www.GRC.com/otg/Marsaglia_PRNGs.pdf
+	http://www.GRC.com/otg/Marsaglia_MWC_Generators.pdf
+	----------------------------------------------------------------------------
+	The quality of this algorithm's pseudo-random numbers have been verified by
+	multiple independent researchers. It handily passes the fermilab.ch tests as
+	well as the "diehard" and "dieharder" test suites.  For individuals wishing
+	to further verify the quality of this algorithm's pseudo-random numbers, a
+	256-megabyte file of this algorithm's output may be downloaded from GRC.com,
+	and a Microsoft Windows scripting host (WSH) version of this algorithm may be
+	downloaded and run from the Windows command prompt to generate unique files
+	of any size:
+	The Fermilab "ENT" tests: http://fourmilab.ch/random/
+	The 256-megabyte sample PRN file at GRC: https://www.GRC.com/otg/uheprng.bin
+	The Windows scripting host version: https://www.GRC.com/otg/wsh-uheprng.js
+	----------------------------------------------------------------------------
+	Qualifying MWC multipliers are: 187884, 686118, 898134, 1104375, 1250205,
+	1460910 and 1768863. (We use the largest one that's < 2^21)
+	============================================================================ */
+
+var stringify = __webpack_require__(60);
+
+/*	============================================================================
+This is based upon Johannes Baagoe's carefully designed and efficient hash
+function for use with JavaScript.  It has a proven "avalanche" effect such
+that every bit of the input affects every bit of the output 50% of the time,
+which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
+============================================================================
+*/
+var Mash = function () {
+	var n = 0xefc8249d;
+	var mash = function (data) {
+		if (data) {
+			data = data.toString();
+			for (var i = 0; i < data.length; i++) {
+				n += data.charCodeAt(i);
+				var h = 0.02519603282416938 * n;
+				n = h >>> 0;
+				h -= n;
+				h *= n;
+				n = h >>> 0;
+				h -= n;
+				n += h * 0x100000000; // 2^32
+			}
+			return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
+		} else {
+			n = 0xefc8249d;
+		}
+	};
+	return mash;
+};
+
+var uheprng = function (seed) {
+	return (function () {
+		var o = 48; // set the 'order' number of ENTROPY-holding 32-bit values
+		var c = 1; // init the 'carry' used by the multiply-with-carry (MWC) algorithm
+		var p = o; // init the 'phase' (max-1) of the intermediate variable pointer
+		var s = new Array(o); // declare our intermediate variables array
+		var i; // general purpose local
+		var j; // general purpose local
+		var k = 0; // general purpose local
+
+		// when our "uheprng" is initially invoked our PRNG state is initialized from the
+		// browser's own local PRNG. This is okay since although its generator might not
+		// be wonderful, it's useful for establishing large startup entropy for our usage.
+		var mash = new Mash(); // get a pointer to our high-performance "Mash" hash
+
+		// fill the array with initial mash hash values
+		for (i = 0; i < o; i++) {
+			s[i] = mash(Math.random());
+		}
+
+		// this PRIVATE (internal access only) function is the heart of the multiply-with-carry
+		// (MWC) PRNG algorithm. When called it returns a pseudo-random number in the form of a
+		// 32-bit JavaScript fraction (0.0 to <1.0) it is a PRIVATE function used by the default
+		// [0-1] return function, and by the random 'string(n)' function which returns 'n'
+		// characters from 33 to 126.
+		var rawprng = function () {
+			if (++p >= o) {
+				p = 0;
+			}
+			var t = 1768863 * s[p] + c * 2.3283064365386963e-10; // 2^-32
+			return s[p] = t - (c = t | 0);
+		};
+
+		// this EXPORTED function is the default function returned by this library.
+		// The values returned are integers in the range from 0 to range-1. We first
+		// obtain two 32-bit fractions (from rawprng) to synthesize a single high
+		// resolution 53-bit prng (0 to <1), then we multiply this by the caller's
+		// "range" param and take the "floor" to return a equally probable integer.
+		var random = function (range) {
+			return Math.floor(range * (rawprng() + (rawprng() * 0x200000 | 0) * 1.1102230246251565e-16)); // 2^-53
+		};
+
+		// this EXPORTED function 'string(n)' returns a pseudo-random string of
+		// 'n' printable characters ranging from chr(33) to chr(126) inclusive.
+		random.string = function (count) {
+			var i;
+			var s = '';
+			for (i = 0; i < count; i++) {
+				s += String.fromCharCode(33 + random(94));
+			}
+			return s;
+		};
+
+		// this PRIVATE "hash" function is used to evolve the generator's internal
+		// entropy state. It is also called by the EXPORTED addEntropy() function
+		// which is used to pour entropy into the PRNG.
+		var hash = function () {
+			var args = Array.prototype.slice.call(arguments);
+			for (i = 0; i < args.length; i++) {
+				for (j = 0; j < o; j++) {
+					s[j] -= mash(args[i]);
+					if (s[j] < 0) {
+						s[j] += 1;
+					}
+				}
+			}
+		};
+
+		// this EXPORTED "clean string" function removes leading and trailing spaces and non-printing
+		// control characters, including any embedded carriage-return (CR) and line-feed (LF) characters,
+		// from any string it is handed. this is also used by the 'hashstring' function (below) to help
+		// users always obtain the same EFFECTIVE uheprng seeding key.
+		random.cleanString = function (inStr) {
+			inStr = inStr.replace(/(^\s*)|(\s*$)/gi, ''); // remove any/all leading spaces
+			inStr = inStr.replace(/[\x00-\x1F]/gi, ''); // remove any/all control characters
+			inStr = inStr.replace(/\n /, '\n'); // remove any/all trailing spaces
+			return inStr; // return the cleaned up result
+		};
+
+		// this EXPORTED "hash string" function hashes the provided character string after first removing
+		// any leading or trailing spaces and ignoring any embedded carriage returns (CR) or Line Feeds (LF)
+		random.hashString = function (inStr) {
+			inStr = random.cleanString(inStr);
+			mash(inStr); // use the string to evolve the 'mash' state
+			for (i = 0; i < inStr.length; i++) { // scan through the characters in our string
+				k = inStr.charCodeAt(i); // get the character code at the location
+				for (j = 0; j < o; j++) { //	"mash" it into the UHEPRNG state
+					s[j] -= mash(k);
+					if (s[j] < 0) {
+						s[j] += 1;
+					}
+				}
+			}
+		};
+
+		// this EXPORTED function allows you to seed the random generator.
+		random.seed = function (seed) {
+			if (typeof seed === 'undefined' || seed === null) {
+				seed = Math.random();
+			}
+			if (typeof seed !== 'string') {
+				seed = stringify(seed, function (key, value) {
+					if (typeof value === 'function') {
+						return (value).toString();
+					}
+					return value;
+				});
+			}
+			random.initState();
+			random.hashString(seed);
+		};
+
+		// this handy exported function is used to add entropy to our uheprng at any time
+		random.addEntropy = function ( /* accept zero or more arguments */ ) {
+			var args = [];
+			for (i = 0; i < arguments.length; i++) {
+				args.push(arguments[i]);
+			}
+			hash((k++) + (new Date().getTime()) + args.join('') + Math.random());
+		};
+
+		// if we want to provide a deterministic startup context for our PRNG,
+		// but without directly setting the internal state variables, this allows
+		// us to initialize the mash hash and PRNG's internal state before providing
+		// some hashing input
+		random.initState = function () {
+			mash(); // pass a null arg to force mash hash to init
+			for (i = 0; i < o; i++) {
+				s[i] = mash(' '); // fill the array with initial mash hash values
+			}
+			c = 1; // init our multiply-with-carry carry
+			p = o; // init our phase
+		};
+
+		// we use this (optional) exported function to signal the JavaScript interpreter
+		// that we're finished using the "Mash" hash function so that it can free up the
+		// local "instance variables" is will have been maintaining.  It's not strictly
+		// necessary, of course, but it's good JavaScript citizenship.
+		random.done = function () {
+			mash = null;
+		};
+
+		// if we called "uheprng" with a seed value, then execute random.seed() before returning
+		if (typeof seed !== 'undefined') {
+			random.seed(seed);
+		}
+
+		// Returns a random integer between 0 (inclusive) and range (exclusive)
+		random.range = function (range) {
+			return random(range);
+		};
+
+		// Returns a random float between 0 (inclusive) and 1 (exclusive)
+		random.random = function () {
+			return random(Number.MAX_VALUE - 1) / Number.MAX_VALUE;
+		};
+
+		// Returns a random float between min (inclusive) and max (exclusive)
+		random.floatBetween = function (min, max) {
+			return random.random() * (max - min) + min;
+		};
+
+		// Returns a random integer between min (inclusive) and max (inclusive)
+		random.intBetween = function (min, max) {
+			return Math.floor(random.random() * (max - min + 1)) + min;
+		};
+
+		// when our main outer "uheprng" function is called, after setting up our
+		// initial variables and entropic state, we return an "instance pointer"
+		// to the internal anonymous function which can then be used to access
+		// the uheprng's various exported functions.  As with the ".done" function
+		// above, we should set the returned value to 'null' once we're finished
+		// using any of these functions.
+		return random;
+	}());
+};
+
+// Modification for use in node:
+uheprng.create = function (seed) {
+	return new uheprng(seed);
+};
+module.exports = uheprng;
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+exports = module.exports = stringify
+exports.getSerialize = serializer
+
+function stringify(obj, replacer, spaces, cycleReplacer) {
+  return JSON.stringify(obj, serializer(replacer, cycleReplacer), spaces)
+}
+
+function serializer(replacer, cycleReplacer) {
+  var stack = [], keys = []
+
+  if (cycleReplacer == null) cycleReplacer = function(key, value) {
+    if (stack[0] === value) return "[Circular ~]"
+    return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
+  }
+
+  return function(key, value) {
+    if (stack.length > 0) {
+      var thisPos = stack.indexOf(this)
+      ~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
+      ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
+      if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
+    }
+    else stack.push(value)
+
+    return replacer == null ? value : replacer.call(this, key, value)
+  }
+}
+
 
 /***/ })
 /******/ ]);

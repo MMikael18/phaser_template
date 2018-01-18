@@ -11,7 +11,7 @@ export default class otherPlayer extends Phaser.Sprite {
         this.ty = y
 
         // physics
-        // this.game.physics.arcade.enable(this)
+        this.game.physics.arcade.enable(this)
         this.game.stage.disableVisibilityChange = true
         // this.animations.updateIfVisible = false
 
@@ -24,14 +24,24 @@ export default class otherPlayer extends Phaser.Sprite {
 
     }
 
-    setTarget(tx,ty){
+    fire(call){
+        if(call && typeof call === "function"){
+            call()
+        }
+    }
+
+    moveTo(tx,ty){
         this.tx = tx
         this.ty = ty
     }
 
     update() 
     {
-        if(this.anim > 0) this.anim -= 1
+        
+        if(this.anim > 0) 
+            this.anim -= 1
+
+        let animRun = false
 
         if(this.anim == 0)
         {
@@ -43,12 +53,24 @@ export default class otherPlayer extends Phaser.Sprite {
         {
             this.animations.play('left')
             this.anim = 4
+            animRun = true
         }
         else if (this.x < this.tx) //  Move to the right
         {
             this.animations.play('right')
             this.anim = 4
+            animRun = true
         }
+
+        if(!animRun && this.ty > this.y){
+             this.animations.play('right')
+             this.anim = 4
+        }else if(!animRun && this.ty < this.y){
+            this.animations.play('left')
+             this.anim = 4
+        }
+        
+
         this.x = this.tx
         this.y = this.ty
 

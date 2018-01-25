@@ -2,9 +2,13 @@
 import gen from 'random-seed'
 import config from '../utils/config'
 
-import Connection from '../modules/connection'
-import Player from '../modules/player'
+import Connection  from '../modules/connection'
+import Player      from '../modules/player'
 import OtherPlayer from '../modules/otherPlayer'
+
+import Monster      from '../modules/monster'
+
+import Bullets     from '../modules/bullets'
 
 export default class Level extends Phaser.State {
 
@@ -13,21 +17,14 @@ export default class Level extends Phaser.State {
         this.score = 0
         this.scoreText
 
-        this.gameWidth = 1920
+        this.gameWidth = 1920 * 2
         this.gameHeight = 1080
     }
 
 
     createGround(){
         var seed = 'My Secret String Value'
-        var rand4 = gen.create(seed)
-        var rand5 = new gen(seed)
-        var rand6 = gen(seed)
-
-        console.log(rand4(100))
-        console.log(rand4(100))
-        console.log(rand4(100))
-        console.log(rand4(100))
+        var rand = gen.create(seed)
 
         let size = 32 * config.scale
         let vert = parseInt(this.gameWidth / size)
@@ -39,7 +36,7 @@ export default class Level extends Phaser.State {
                 let x = this.add.sprite(xp, y * size, 'ground')
                 x.scale.setTo(config.scale);
 
-                let r = Math.floor((Math.random() * 10) + 1);
+                let r = Math.floor(rand(10));
                 x.frame = r > 3 ? 3 : r;
             }
         }
@@ -47,16 +44,25 @@ export default class Level extends Phaser.State {
 
     create()
     {
-
-        //console.log(config.getScale())
-
-        this.createGround()
-
-        //this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, 'ground', 2)
-        
+        // Create world
+        this.createGround()   
         this.world.setBounds(0, 0, this.gameWidth, this.gameHeight)
         
-        //this.physics.startSystem(Phaser.Physics.P2JS)
+
+        // create monster TEST
+        
+        this.monster = new Monster({
+            game: this.game,
+            x: this.gameWidth / 2, 
+            y: this.gameHeight / 2,
+            asset: 'monster'
+        })
+        this.add.existing(this.monster) 
+
+        // Bullets pool
+        this.bullets = new Bullets({
+            game: this.game
+        })
         
         // Player
         this.player = new Player({
@@ -68,11 +74,11 @@ export default class Level extends Phaser.State {
         this.add.existing(this.player)    
         this.camera.follow(this.player)
         
-        // otherPlayer
+        // OtherPlayer
         this.otherplayers = this.game.add.group()
         this.add.existing(this.otherplayers)
 
-        // socket io connector
+        // Socket io connector
         this.connect = new Connection({
             game: this.game,
             join: (pid) => {
@@ -124,9 +130,17 @@ export default class Level extends Phaser.State {
         
         // collide to player
         //this.game.physics.arcade.collide(this.player, this.platforms)
+        this.player.fire((e) => {
+            if(e.lookDirection == "RIGHT"){
+                this.bullets.addToWold(e.x, e.y, 500, 0)
+            }else{
+                this.bullets.addToWold(e.x, e.y, -500, 0)
+            }            
+        })
+        
 
-        this.player.moving(() => {
-            let position = (({ x, y }) => ({ x, y }))(this.player)
+        this.player.moving((e) => {
+            let position = (({ x, y }) => ({ x, y }))(e)
             this.connect.emitPlayerMove(position)
         })
 

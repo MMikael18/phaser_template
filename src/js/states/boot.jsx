@@ -5,15 +5,18 @@ export default class Boot extends Phaser.State {
     
     preload ()
     {
-        // image
+        // Ground and enviroment
         this.load.spritesheet('ground', 'assets/ground.png', 32, 32)
 
-        //this.load.image('ground', 'assets/platform.png')
-        this.load.image('star', 'assets/star.png')
-        
-        // spritesheet
-        this.load.spritesheet('player', 'assets/dude.png', 16, 16)
+        // GUI
         this.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71)
+
+        // Player
+        this.load.spritesheet('player', 'assets/dude.png', 16, 16)        
+        this.load.image('bullet', 'assets/bullet.png')
+
+        // Mosters
+        this.load.spritesheet('monster', 'assets/monster.png', 16, 16)        
     }
     
     create ()     

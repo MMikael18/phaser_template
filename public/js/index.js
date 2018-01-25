@@ -100,7 +100,7 @@ module.exports = g;
  * Expose `debug()` as the module.
  */
 
-exports = module.exports = __webpack_require__(36);
+exports = module.exports = __webpack_require__(38);
 exports.log = log;
 exports.formatArgs = formatArgs;
 exports.save = save;
@@ -459,15 +459,15 @@ Emitter.prototype.hasListeners = function(event){
  * Module dependencies.
  */
 
-var keys = __webpack_require__(45);
+var keys = __webpack_require__(47);
 var hasBinary = __webpack_require__(12);
-var sliceBuffer = __webpack_require__(46);
-var after = __webpack_require__(47);
-var utf8 = __webpack_require__(48);
+var sliceBuffer = __webpack_require__(48);
+var after = __webpack_require__(49);
+var utf8 = __webpack_require__(50);
 
 var base64encoder;
 if (global && global.ArrayBuffer) {
-  base64encoder = __webpack_require__(50);
+  base64encoder = __webpack_require__(52);
 }
 
 /**
@@ -525,7 +525,7 @@ var err = { type: 'error', data: 'parser error' };
  * Create a blob api even for blob builder when vendor prefixes exist
  */
 
-var Blob = __webpack_require__(51);
+var Blob = __webpack_require__(53);
 
 /**
  * Encodes a packet.
@@ -1066,61 +1066,6 @@ exports.decodePayloadAsBinary = function (data, binaryType, callback) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-/**
- * Compiles a querystring
- * Returns string representation of the object
- *
- * @param {Object}
- * @api private
- */
-
-exports.encode = function (obj) {
-  var str = '';
-
-  for (var i in obj) {
-    if (obj.hasOwnProperty(i)) {
-      if (str.length) str += '&';
-      str += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]);
-    }
-  }
-
-  return str;
-};
-
-/**
- * Parses a simple querystring into an object
- *
- * @param {String} qs
- * @api private
- */
-
-exports.decode = function(qs){
-  var qry = {};
-  var pairs = qs.split('&');
-  for (var i = 0, l = pairs.length; i < l; i++) {
-    var pair = pairs[i].split('=');
-    qry[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-  }
-  return qry;
-};
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-
-module.exports = function(a, b){
-  var fn = function(){};
-  fn.prototype = b.prototype;
-  a.prototype = new fn;
-  a.prototype.constructor = a;
-};
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1171,6 +1116,61 @@ var Config = function () {
 exports.default = new Config();
 
 /***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+/**
+ * Compiles a querystring
+ * Returns string representation of the object
+ *
+ * @param {Object}
+ * @api private
+ */
+
+exports.encode = function (obj) {
+  var str = '';
+
+  for (var i in obj) {
+    if (obj.hasOwnProperty(i)) {
+      if (str.length) str += '&';
+      str += encodeURIComponent(i) + '=' + encodeURIComponent(obj[i]);
+    }
+  }
+
+  return str;
+};
+
+/**
+ * Parses a simple querystring into an object
+ *
+ * @param {String} qs
+ * @api private
+ */
+
+exports.decode = function(qs){
+  var qry = {};
+  var pairs = qs.split('&');
+  for (var i = 0, l = pairs.length; i < l; i++) {
+    var pair = pairs[i].split('=');
+    qry[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+  }
+  return qry;
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+
+module.exports = function(a, b){
+  var fn = function(){};
+  fn.prototype = b.prototype;
+  a.prototype = new fn;
+  a.prototype.constructor = a;
+};
+
+/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1182,7 +1182,7 @@ exports.default = new Config();
 var debug = __webpack_require__(1)('socket.io-parser');
 var Emitter = __webpack_require__(2);
 var hasBin = __webpack_require__(12);
-var binary = __webpack_require__(39);
+var binary = __webpack_require__(41);
 var isBuf = __webpack_require__(13);
 
 /**
@@ -1582,7 +1582,7 @@ function error() {
 
 /* WEBPACK VAR INJECTION */(function(global) {// browser shim for xmlhttprequest module
 
-var hasCORS = __webpack_require__(43);
+var hasCORS = __webpack_require__(45);
 
 module.exports = function (opts) {
   var xdomain = opts.xdomain;
@@ -2028,7 +2028,7 @@ module.exports = function parseuri(str) {
  * Module requirements.
  */
 
-var isArray = __webpack_require__(38);
+var isArray = __webpack_require__(40);
 
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
@@ -2116,7 +2116,7 @@ function isBuf(obj) {
  * Module dependencies.
  */
 
-var eio = __webpack_require__(41);
+var eio = __webpack_require__(43);
 var Socket = __webpack_require__(19);
 var Emitter = __webpack_require__(2);
 var parser = __webpack_require__(7);
@@ -2124,7 +2124,7 @@ var on = __webpack_require__(20);
 var bind = __webpack_require__(21);
 var debug = __webpack_require__(1)('socket.io-client:manager');
 var indexOf = __webpack_require__(18);
-var Backoff = __webpack_require__(56);
+var Backoff = __webpack_require__(58);
 
 /**
  * IE6+ hasOwnProperty
@@ -2695,9 +2695,9 @@ Manager.prototype.onreconnect = function () {
  */
 
 var XMLHttpRequest = __webpack_require__(8);
-var XHR = __webpack_require__(44);
-var JSONP = __webpack_require__(52);
-var websocket = __webpack_require__(53);
+var XHR = __webpack_require__(46);
+var JSONP = __webpack_require__(54);
+var websocket = __webpack_require__(55);
 
 /**
  * Export transports.
@@ -2755,9 +2755,9 @@ function polling (opts) {
  */
 
 var Transport = __webpack_require__(9);
-var parseqs = __webpack_require__(4);
+var parseqs = __webpack_require__(5);
 var parser = __webpack_require__(3);
-var inherit = __webpack_require__(5);
+var inherit = __webpack_require__(6);
 var yeast = __webpack_require__(17);
 var debug = __webpack_require__(1)('engine.io-client:polling');
 
@@ -3098,11 +3098,11 @@ module.exports = function(arr, obj){
 
 var parser = __webpack_require__(7);
 var Emitter = __webpack_require__(2);
-var toArray = __webpack_require__(55);
+var toArray = __webpack_require__(57);
 var on = __webpack_require__(20);
 var bind = __webpack_require__(21);
 var debug = __webpack_require__(1)('socket.io-client:socket');
-var parseqs = __webpack_require__(4);
+var parseqs = __webpack_require__(5);
 
 /**
  * Module exports.
@@ -111342,7 +111342,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(6);
+var _config = __webpack_require__(4);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -111368,15 +111368,18 @@ var Boot = function (_Phaser$State) {
         _createClass(Boot, [{
                 key: 'preload',
                 value: function preload() {
-                        // image
+                        // Ground and enviroment
                         this.load.spritesheet('ground', 'assets/ground.png', 32, 32);
 
-                        //this.load.image('ground', 'assets/platform.png')
-                        this.load.image('star', 'assets/star.png');
-
-                        // spritesheet
-                        this.load.spritesheet('player', 'assets/dude.png', 16, 16);
+                        // GUI
                         this.load.spritesheet('button', 'assets/button_sprite_sheet.png', 193, 71);
+
+                        // Player
+                        this.load.spritesheet('player', 'assets/dude.png', 16, 16);
+                        this.load.image('bullet', 'assets/bullet.png');
+
+                        // Mosters
+                        this.load.spritesheet('monster', 'assets/monster.png', 16, 16);
                 }
         }, {
                 key: 'create',
@@ -111471,25 +111474,33 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _randomSeed = __webpack_require__(59);
+var _randomSeed = __webpack_require__(33);
 
 var _randomSeed2 = _interopRequireDefault(_randomSeed);
 
-var _config = __webpack_require__(6);
+var _config = __webpack_require__(4);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _connection = __webpack_require__(33);
+var _connection = __webpack_require__(35);
 
 var _connection2 = _interopRequireDefault(_connection);
 
-var _player = __webpack_require__(57);
+var _player = __webpack_require__(59);
 
 var _player2 = _interopRequireDefault(_player);
 
-var _otherPlayer = __webpack_require__(58);
+var _otherPlayer = __webpack_require__(60);
 
 var _otherPlayer2 = _interopRequireDefault(_otherPlayer);
+
+var _monster = __webpack_require__(62);
+
+var _monster2 = _interopRequireDefault(_monster);
+
+var _bullets = __webpack_require__(61);
+
+var _bullets2 = _interopRequireDefault(_bullets);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -111514,21 +111525,14 @@ var Level = function (_Phaser$State) {
             this.score = 0;
             this.scoreText;
 
-            this.gameWidth = 1920;
+            this.gameWidth = 1920 * 2;
             this.gameHeight = 1080;
         }
     }, {
         key: 'createGround',
         value: function createGround() {
             var seed = 'My Secret String Value';
-            var rand4 = _randomSeed2.default.create(seed);
-            var rand5 = new _randomSeed2.default(seed);
-            var rand6 = (0, _randomSeed2.default)(seed);
-
-            console.log(rand4(100));
-            console.log(rand4(100));
-            console.log(rand4(100));
-            console.log(rand4(100));
+            var rand = _randomSeed2.default.create(seed);
 
             var size = 32 * _config2.default.scale;
             var vert = parseInt(this.gameWidth / size);
@@ -111540,7 +111544,7 @@ var Level = function (_Phaser$State) {
                     var _x = this.add.sprite(xp, y * size, 'ground');
                     _x.scale.setTo(_config2.default.scale);
 
-                    var r = Math.floor(Math.random() * 10 + 1);
+                    var r = Math.floor(rand(10));
                     _x.frame = r > 3 ? 3 : r;
                 }
             }
@@ -111550,15 +111554,24 @@ var Level = function (_Phaser$State) {
         value: function create() {
             var _this2 = this;
 
-            //console.log(config.getScale())
-
+            // Create world
             this.createGround();
-
-            //this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, 'ground', 2)
-
             this.world.setBounds(0, 0, this.gameWidth, this.gameHeight);
 
-            //this.physics.startSystem(Phaser.Physics.P2JS)
+            // create monster TEST
+
+            this.monster = new _monster2.default({
+                game: this.game,
+                x: this.gameWidth / 2,
+                y: this.gameHeight / 2,
+                asset: 'monster'
+            });
+            this.add.existing(this.monster);
+
+            // Bullets pool
+            this.bullets = new _bullets2.default({
+                game: this.game
+            });
 
             // Player
             this.player = new _player2.default({
@@ -111570,11 +111583,11 @@ var Level = function (_Phaser$State) {
             this.add.existing(this.player);
             this.camera.follow(this.player);
 
-            // otherPlayer
+            // OtherPlayer
             this.otherplayers = this.game.add.group();
             this.add.existing(this.otherplayers);
 
-            // socket io connector
+            // Socket io connector
             this.connect = new _connection2.default({
                 game: this.game,
                 join: function join(pid) {
@@ -111687,13 +111700,20 @@ var Level = function (_Phaser$State) {
 
             // collide to player
             //this.game.physics.arcade.collide(this.player, this.platforms)
+            this.player.fire(function (e) {
+                if (e.lookDirection == "RIGHT") {
+                    _this3.bullets.addToWold(e.x, e.y, 500, 0);
+                } else {
+                    _this3.bullets.addToWold(e.x, e.y, -500, 0);
+                }
+            });
 
-            this.player.moving(function () {
+            this.player.moving(function (e) {
                 var position = function (_ref2) {
                     var x = _ref2.x,
                         y = _ref2.y;
                     return { x: x, y: y };
-                }(_this3.player);
+                }(e);
                 _this3.connect.emitPlayerMove(position);
             });
         }
@@ -111749,6 +111769,314 @@ exports.default = Level;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/*
+ * random-seed
+ * https://github.com/skratchdot/random-seed
+ *
+ * This code was originally written by Steve Gibson and can be found here:
+ *
+ * https://www.grc.com/otg/uheprng.htm
+ *
+ * It was slightly modified for use in node, to pass jshint, and a few additional
+ * helper functions were added.
+ *
+ * Copyright (c) 2013 skratchdot
+ * Dual Licensed under the MIT license and the original GRC copyright/license
+ * included below.
+ */
+/*	============================================================================
+									Gibson Research Corporation
+				UHEPRNG - Ultra High Entropy Pseudo-Random Number Generator
+	============================================================================
+	LICENSE AND COPYRIGHT:  THIS CODE IS HEREBY RELEASED INTO THE PUBLIC DOMAIN
+	Gibson Research Corporation releases and disclaims ALL RIGHTS AND TITLE IN
+	THIS CODE OR ANY DERIVATIVES. Anyone may be freely use it for any purpose.
+	============================================================================
+	This is GRC's cryptographically strong PRNG (pseudo-random number generator)
+	for JavaScript. It is driven by 1536 bits of entropy, stored in an array of
+	48, 32-bit JavaScript variables.  Since many applications of this generator,
+	including ours with the "Off The Grid" Latin Square generator, may require
+	the deteriministic re-generation of a sequence of PRNs, this PRNG's initial
+	entropic state can be read and written as a static whole, and incrementally
+	evolved by pouring new source entropy into the generator's internal state.
+	----------------------------------------------------------------------------
+	ENDLESS THANKS are due Johannes Baagoe for his careful development of highly
+	robust JavaScript implementations of JS PRNGs.  This work was based upon his
+	JavaScript "Alea" PRNG which is based upon the extremely robust Multiply-
+	With-Carry (MWC) PRNG invented by George Marsaglia. MWC Algorithm References:
+	http://www.GRC.com/otg/Marsaglia_PRNGs.pdf
+	http://www.GRC.com/otg/Marsaglia_MWC_Generators.pdf
+	----------------------------------------------------------------------------
+	The quality of this algorithm's pseudo-random numbers have been verified by
+	multiple independent researchers. It handily passes the fermilab.ch tests as
+	well as the "diehard" and "dieharder" test suites.  For individuals wishing
+	to further verify the quality of this algorithm's pseudo-random numbers, a
+	256-megabyte file of this algorithm's output may be downloaded from GRC.com,
+	and a Microsoft Windows scripting host (WSH) version of this algorithm may be
+	downloaded and run from the Windows command prompt to generate unique files
+	of any size:
+	The Fermilab "ENT" tests: http://fourmilab.ch/random/
+	The 256-megabyte sample PRN file at GRC: https://www.GRC.com/otg/uheprng.bin
+	The Windows scripting host version: https://www.GRC.com/otg/wsh-uheprng.js
+	----------------------------------------------------------------------------
+	Qualifying MWC multipliers are: 187884, 686118, 898134, 1104375, 1250205,
+	1460910 and 1768863. (We use the largest one that's < 2^21)
+	============================================================================ */
+
+var stringify = __webpack_require__(34);
+
+/*	============================================================================
+This is based upon Johannes Baagoe's carefully designed and efficient hash
+function for use with JavaScript.  It has a proven "avalanche" effect such
+that every bit of the input affects every bit of the output 50% of the time,
+which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
+============================================================================
+*/
+var Mash = function () {
+	var n = 0xefc8249d;
+	var mash = function (data) {
+		if (data) {
+			data = data.toString();
+			for (var i = 0; i < data.length; i++) {
+				n += data.charCodeAt(i);
+				var h = 0.02519603282416938 * n;
+				n = h >>> 0;
+				h -= n;
+				h *= n;
+				n = h >>> 0;
+				h -= n;
+				n += h * 0x100000000; // 2^32
+			}
+			return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
+		} else {
+			n = 0xefc8249d;
+		}
+	};
+	return mash;
+};
+
+var uheprng = function (seed) {
+	return (function () {
+		var o = 48; // set the 'order' number of ENTROPY-holding 32-bit values
+		var c = 1; // init the 'carry' used by the multiply-with-carry (MWC) algorithm
+		var p = o; // init the 'phase' (max-1) of the intermediate variable pointer
+		var s = new Array(o); // declare our intermediate variables array
+		var i; // general purpose local
+		var j; // general purpose local
+		var k = 0; // general purpose local
+
+		// when our "uheprng" is initially invoked our PRNG state is initialized from the
+		// browser's own local PRNG. This is okay since although its generator might not
+		// be wonderful, it's useful for establishing large startup entropy for our usage.
+		var mash = new Mash(); // get a pointer to our high-performance "Mash" hash
+
+		// fill the array with initial mash hash values
+		for (i = 0; i < o; i++) {
+			s[i] = mash(Math.random());
+		}
+
+		// this PRIVATE (internal access only) function is the heart of the multiply-with-carry
+		// (MWC) PRNG algorithm. When called it returns a pseudo-random number in the form of a
+		// 32-bit JavaScript fraction (0.0 to <1.0) it is a PRIVATE function used by the default
+		// [0-1] return function, and by the random 'string(n)' function which returns 'n'
+		// characters from 33 to 126.
+		var rawprng = function () {
+			if (++p >= o) {
+				p = 0;
+			}
+			var t = 1768863 * s[p] + c * 2.3283064365386963e-10; // 2^-32
+			return s[p] = t - (c = t | 0);
+		};
+
+		// this EXPORTED function is the default function returned by this library.
+		// The values returned are integers in the range from 0 to range-1. We first
+		// obtain two 32-bit fractions (from rawprng) to synthesize a single high
+		// resolution 53-bit prng (0 to <1), then we multiply this by the caller's
+		// "range" param and take the "floor" to return a equally probable integer.
+		var random = function (range) {
+			return Math.floor(range * (rawprng() + (rawprng() * 0x200000 | 0) * 1.1102230246251565e-16)); // 2^-53
+		};
+
+		// this EXPORTED function 'string(n)' returns a pseudo-random string of
+		// 'n' printable characters ranging from chr(33) to chr(126) inclusive.
+		random.string = function (count) {
+			var i;
+			var s = '';
+			for (i = 0; i < count; i++) {
+				s += String.fromCharCode(33 + random(94));
+			}
+			return s;
+		};
+
+		// this PRIVATE "hash" function is used to evolve the generator's internal
+		// entropy state. It is also called by the EXPORTED addEntropy() function
+		// which is used to pour entropy into the PRNG.
+		var hash = function () {
+			var args = Array.prototype.slice.call(arguments);
+			for (i = 0; i < args.length; i++) {
+				for (j = 0; j < o; j++) {
+					s[j] -= mash(args[i]);
+					if (s[j] < 0) {
+						s[j] += 1;
+					}
+				}
+			}
+		};
+
+		// this EXPORTED "clean string" function removes leading and trailing spaces and non-printing
+		// control characters, including any embedded carriage-return (CR) and line-feed (LF) characters,
+		// from any string it is handed. this is also used by the 'hashstring' function (below) to help
+		// users always obtain the same EFFECTIVE uheprng seeding key.
+		random.cleanString = function (inStr) {
+			inStr = inStr.replace(/(^\s*)|(\s*$)/gi, ''); // remove any/all leading spaces
+			inStr = inStr.replace(/[\x00-\x1F]/gi, ''); // remove any/all control characters
+			inStr = inStr.replace(/\n /, '\n'); // remove any/all trailing spaces
+			return inStr; // return the cleaned up result
+		};
+
+		// this EXPORTED "hash string" function hashes the provided character string after first removing
+		// any leading or trailing spaces and ignoring any embedded carriage returns (CR) or Line Feeds (LF)
+		random.hashString = function (inStr) {
+			inStr = random.cleanString(inStr);
+			mash(inStr); // use the string to evolve the 'mash' state
+			for (i = 0; i < inStr.length; i++) { // scan through the characters in our string
+				k = inStr.charCodeAt(i); // get the character code at the location
+				for (j = 0; j < o; j++) { //	"mash" it into the UHEPRNG state
+					s[j] -= mash(k);
+					if (s[j] < 0) {
+						s[j] += 1;
+					}
+				}
+			}
+		};
+
+		// this EXPORTED function allows you to seed the random generator.
+		random.seed = function (seed) {
+			if (typeof seed === 'undefined' || seed === null) {
+				seed = Math.random();
+			}
+			if (typeof seed !== 'string') {
+				seed = stringify(seed, function (key, value) {
+					if (typeof value === 'function') {
+						return (value).toString();
+					}
+					return value;
+				});
+			}
+			random.initState();
+			random.hashString(seed);
+		};
+
+		// this handy exported function is used to add entropy to our uheprng at any time
+		random.addEntropy = function ( /* accept zero or more arguments */ ) {
+			var args = [];
+			for (i = 0; i < arguments.length; i++) {
+				args.push(arguments[i]);
+			}
+			hash((k++) + (new Date().getTime()) + args.join('') + Math.random());
+		};
+
+		// if we want to provide a deterministic startup context for our PRNG,
+		// but without directly setting the internal state variables, this allows
+		// us to initialize the mash hash and PRNG's internal state before providing
+		// some hashing input
+		random.initState = function () {
+			mash(); // pass a null arg to force mash hash to init
+			for (i = 0; i < o; i++) {
+				s[i] = mash(' '); // fill the array with initial mash hash values
+			}
+			c = 1; // init our multiply-with-carry carry
+			p = o; // init our phase
+		};
+
+		// we use this (optional) exported function to signal the JavaScript interpreter
+		// that we're finished using the "Mash" hash function so that it can free up the
+		// local "instance variables" is will have been maintaining.  It's not strictly
+		// necessary, of course, but it's good JavaScript citizenship.
+		random.done = function () {
+			mash = null;
+		};
+
+		// if we called "uheprng" with a seed value, then execute random.seed() before returning
+		if (typeof seed !== 'undefined') {
+			random.seed(seed);
+		}
+
+		// Returns a random integer between 0 (inclusive) and range (exclusive)
+		random.range = function (range) {
+			return random(range);
+		};
+
+		// Returns a random float between 0 (inclusive) and 1 (exclusive)
+		random.random = function () {
+			return random(Number.MAX_VALUE - 1) / Number.MAX_VALUE;
+		};
+
+		// Returns a random float between min (inclusive) and max (exclusive)
+		random.floatBetween = function (min, max) {
+			return random.random() * (max - min) + min;
+		};
+
+		// Returns a random integer between min (inclusive) and max (inclusive)
+		random.intBetween = function (min, max) {
+			return Math.floor(random.random() * (max - min + 1)) + min;
+		};
+
+		// when our main outer "uheprng" function is called, after setting up our
+		// initial variables and entropic state, we return an "instance pointer"
+		// to the internal anonymous function which can then be used to access
+		// the uheprng's various exported functions.  As with the ".done" function
+		// above, we should set the returned value to 'null' once we're finished
+		// using any of these functions.
+		return random;
+	}());
+};
+
+// Modification for use in node:
+uheprng.create = function (seed) {
+	return new uheprng(seed);
+};
+module.exports = uheprng;
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports) {
+
+exports = module.exports = stringify
+exports.getSerialize = serializer
+
+function stringify(obj, replacer, spaces, cycleReplacer) {
+  return JSON.stringify(obj, serializer(replacer, cycleReplacer), spaces)
+}
+
+function serializer(replacer, cycleReplacer) {
+  var stack = [], keys = []
+
+  if (cycleReplacer == null) cycleReplacer = function(key, value) {
+    if (stack[0] === value) return "[Circular ~]"
+    return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
+  }
+
+  return function(key, value) {
+    if (stack.length > 0) {
+      var thisPos = stack.indexOf(this)
+      ~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
+      ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
+      if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
+    }
+    else stack.push(value)
+
+    return replacer == null ? value : replacer.call(this, key, value)
+  }
+}
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
@@ -111757,7 +112085,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _socket = __webpack_require__(34);
+var _socket = __webpack_require__(36);
 
 var _socket2 = _interopRequireDefault(_socket);
 
@@ -111859,7 +112187,7 @@ var Connection = function (_Phaser$Group) {
 exports.default = Connection;
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -111867,7 +112195,7 @@ exports.default = Connection;
  * Module dependencies.
  */
 
-var url = __webpack_require__(35);
+var url = __webpack_require__(37);
 var parser = __webpack_require__(7);
 var Manager = __webpack_require__(14);
 var debug = __webpack_require__(1)('socket.io-client');
@@ -111959,7 +112287,7 @@ exports.Socket = __webpack_require__(19);
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -112041,7 +112369,7 @@ function url (uri, loc) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -112057,7 +112385,7 @@ exports.coerce = coerce;
 exports.disable = disable;
 exports.enable = enable;
 exports.enabled = enabled;
-exports.humanize = __webpack_require__(37);
+exports.humanize = __webpack_require__(39);
 
 /**
  * The currently active debug mode names, and names to skip.
@@ -112249,7 +112577,7 @@ function coerce(val) {
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports) {
 
 /**
@@ -112407,7 +112735,7 @@ function plural(ms, n, name) {
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -112418,7 +112746,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -112427,7 +112755,7 @@ module.exports = Array.isArray || function (arr) {
  * Module requirements
  */
 
-var isArray = __webpack_require__(40);
+var isArray = __webpack_require__(42);
 var isBuf = __webpack_require__(13);
 var toString = Object.prototype.toString;
 var withNativeBlob = typeof global.Blob === 'function' || toString.call(global.Blob) === '[object BlobConstructor]';
@@ -112566,7 +112894,7 @@ exports.removeBlobs = function(data, callback) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -112577,11 +112905,11 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-module.exports = __webpack_require__(42);
+module.exports = __webpack_require__(44);
 
 /**
  * Exports parser
@@ -112593,7 +112921,7 @@ module.exports.parser = __webpack_require__(3);
 
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -112606,7 +112934,7 @@ var debug = __webpack_require__(1)('engine.io-client:socket');
 var index = __webpack_require__(18);
 var parser = __webpack_require__(3);
 var parseuri = __webpack_require__(11);
-var parseqs = __webpack_require__(4);
+var parseqs = __webpack_require__(5);
 
 /**
  * Module exports.
@@ -113343,7 +113671,7 @@ Socket.prototype.filterUpgrades = function (upgrades) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports) {
 
 
@@ -113366,7 +113694,7 @@ try {
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -113376,7 +113704,7 @@ try {
 var XMLHttpRequest = __webpack_require__(8);
 var Polling = __webpack_require__(16);
 var Emitter = __webpack_require__(2);
-var inherit = __webpack_require__(5);
+var inherit = __webpack_require__(6);
 var debug = __webpack_require__(1)('engine.io-client:polling-xhr');
 
 /**
@@ -113786,7 +114114,7 @@ function unloadHandler () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(module, exports) {
 
 
@@ -113811,7 +114139,7 @@ module.exports = Object.keys || function keys (obj){
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports) {
 
 /**
@@ -113846,7 +114174,7 @@ module.exports = function(arraybuffer, start, end) {
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = after
@@ -113880,7 +114208,7 @@ function noop() {}
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/utf8js v2.1.2 by @mathias */
@@ -114138,10 +114466,10 @@ function noop() {}
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(49)(module), __webpack_require__(0)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(51)(module), __webpack_require__(0)))
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -114169,7 +114497,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports) {
 
 /*
@@ -114242,7 +114570,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -114345,7 +114673,7 @@ module.exports = (function() {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -114354,7 +114682,7 @@ module.exports = (function() {
  */
 
 var Polling = __webpack_require__(16);
-var inherit = __webpack_require__(5);
+var inherit = __webpack_require__(6);
 
 /**
  * Module exports.
@@ -114583,7 +114911,7 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -114592,15 +114920,15 @@ JSONPPolling.prototype.doWrite = function (data, fn) {
 
 var Transport = __webpack_require__(9);
 var parser = __webpack_require__(3);
-var parseqs = __webpack_require__(4);
-var inherit = __webpack_require__(5);
+var parseqs = __webpack_require__(5);
+var inherit = __webpack_require__(6);
 var yeast = __webpack_require__(17);
 var debug = __webpack_require__(1)('engine.io-client:websocket');
 var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 var NodeWebSocket;
 if (typeof window === 'undefined') {
   try {
-    NodeWebSocket = __webpack_require__(54);
+    NodeWebSocket = __webpack_require__(56);
   } catch (e) { }
 }
 
@@ -114876,13 +115204,13 @@ WS.prototype.check = function () {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports) {
 
 /* (ignored) */
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = toArray
@@ -114901,7 +115229,7 @@ function toArray(list, index) {
 
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports) {
 
 
@@ -114992,7 +115320,7 @@ Backoff.prototype.setJitter = function(jitter){
 
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115004,7 +115332,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _config = __webpack_require__(6);
+var _config = __webpack_require__(4);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -115032,12 +115360,11 @@ var Player = function (_Phaser$Sprite) {
         _this.game = game;
 
         _this.scale.setTo(_config2.default.scale);
+        _this.anchor.set(0.5);
         // physics
         _this.game.physics.arcade.enable(_this);
-
         // settings        
         _this.body.collideWorldBounds = true;
-
         // Animations
         _this.animations.add('left', [0, 1, 2, 3], 10, true);
         _this.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -115052,7 +115379,6 @@ var Player = function (_Phaser$Sprite) {
         };
 
         _this.lookDirection = "LEFT";
-        //console.log(this.wasd.up)
         return _this;
     }
 
@@ -115088,16 +115414,21 @@ var Player = function (_Phaser$Sprite) {
             if (this.body.velocity.x == 0 && this.body.velocity.y == 0) //  Stand still
                 {
                     this.animations.stop();
-                    this.frame = 4;
+                    //this.frame = 4
 
                     this.x = parseInt(this.x);
                     this.y = parseInt(this.y);
                 }
         }
     }, {
+        key: 'fire',
+        value: function fire(call) {
+            if (this.game.input.activePointer.isDown) call(this);
+        }
+    }, {
         key: 'moving',
         value: function moving(call) {
-            if (!this.body.velocity.isZero()) call();
+            if (!this.body.velocity.isZero()) call(this);
         }
     }]);
 
@@ -115107,7 +115438,7 @@ var Player = function (_Phaser$Sprite) {
 exports.default = Player;
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115118,6 +115449,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _config = __webpack_require__(4);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -115145,6 +115482,8 @@ var otherPlayer = function (_Phaser$Sprite) {
         _this.tx = x;
         _this.ty = y;
 
+        _this.scale.setTo(_config2.default.scale);
+
         // physics
         _this.game.physics.arcade.enable(_this);
         _this.game.stage.disableVisibilityChange = true;
@@ -115156,7 +115495,6 @@ var otherPlayer = function (_Phaser$Sprite) {
         _this.animations.add('left', [0, 1, 2, 3], 10, true);
         _this.animations.add('right', [5, 6, 7, 8], 10, true);
         _this.anim = 5;
-
         return _this;
     }
 
@@ -115217,312 +115555,151 @@ var otherPlayer = function (_Phaser$Sprite) {
 exports.default = otherPlayer;
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/*
- * random-seed
- * https://github.com/skratchdot/random-seed
- *
- * This code was originally written by Steve Gibson and can be found here:
- *
- * https://www.grc.com/otg/uheprng.htm
- *
- * It was slightly modified for use in node, to pass jshint, and a few additional
- * helper functions were added.
- *
- * Copyright (c) 2013 skratchdot
- * Dual Licensed under the MIT license and the original GRC copyright/license
- * included below.
- */
-/*	============================================================================
-									Gibson Research Corporation
-				UHEPRNG - Ultra High Entropy Pseudo-Random Number Generator
-	============================================================================
-	LICENSE AND COPYRIGHT:  THIS CODE IS HEREBY RELEASED INTO THE PUBLIC DOMAIN
-	Gibson Research Corporation releases and disclaims ALL RIGHTS AND TITLE IN
-	THIS CODE OR ANY DERIVATIVES. Anyone may be freely use it for any purpose.
-	============================================================================
-	This is GRC's cryptographically strong PRNG (pseudo-random number generator)
-	for JavaScript. It is driven by 1536 bits of entropy, stored in an array of
-	48, 32-bit JavaScript variables.  Since many applications of this generator,
-	including ours with the "Off The Grid" Latin Square generator, may require
-	the deteriministic re-generation of a sequence of PRNs, this PRNG's initial
-	entropic state can be read and written as a static whole, and incrementally
-	evolved by pouring new source entropy into the generator's internal state.
-	----------------------------------------------------------------------------
-	ENDLESS THANKS are due Johannes Baagoe for his careful development of highly
-	robust JavaScript implementations of JS PRNGs.  This work was based upon his
-	JavaScript "Alea" PRNG which is based upon the extremely robust Multiply-
-	With-Carry (MWC) PRNG invented by George Marsaglia. MWC Algorithm References:
-	http://www.GRC.com/otg/Marsaglia_PRNGs.pdf
-	http://www.GRC.com/otg/Marsaglia_MWC_Generators.pdf
-	----------------------------------------------------------------------------
-	The quality of this algorithm's pseudo-random numbers have been verified by
-	multiple independent researchers. It handily passes the fermilab.ch tests as
-	well as the "diehard" and "dieharder" test suites.  For individuals wishing
-	to further verify the quality of this algorithm's pseudo-random numbers, a
-	256-megabyte file of this algorithm's output may be downloaded from GRC.com,
-	and a Microsoft Windows scripting host (WSH) version of this algorithm may be
-	downloaded and run from the Windows command prompt to generate unique files
-	of any size:
-	The Fermilab "ENT" tests: http://fourmilab.ch/random/
-	The 256-megabyte sample PRN file at GRC: https://www.GRC.com/otg/uheprng.bin
-	The Windows scripting host version: https://www.GRC.com/otg/wsh-uheprng.js
-	----------------------------------------------------------------------------
-	Qualifying MWC multipliers are: 187884, 686118, 898134, 1104375, 1250205,
-	1460910 and 1768863. (We use the largest one that's < 2^21)
-	============================================================================ */
 
-var stringify = __webpack_require__(60);
 
-/*	============================================================================
-This is based upon Johannes Baagoe's carefully designed and efficient hash
-function for use with JavaScript.  It has a proven "avalanche" effect such
-that every bit of the input affects every bit of the output 50% of the time,
-which is good.	See: http://baagoe.com/en/RandomMusings/hash/avalanche.xhtml
-============================================================================
-*/
-var Mash = function () {
-	var n = 0xefc8249d;
-	var mash = function (data) {
-		if (data) {
-			data = data.toString();
-			for (var i = 0; i < data.length; i++) {
-				n += data.charCodeAt(i);
-				var h = 0.02519603282416938 * n;
-				n = h >>> 0;
-				h -= n;
-				h *= n;
-				n = h >>> 0;
-				h -= n;
-				n += h * 0x100000000; // 2^32
-			}
-			return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
-		} else {
-			n = 0xefc8249d;
-		}
-	};
-	return mash;
-};
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-var uheprng = function (seed) {
-	return (function () {
-		var o = 48; // set the 'order' number of ENTROPY-holding 32-bit values
-		var c = 1; // init the 'carry' used by the multiply-with-carry (MWC) algorithm
-		var p = o; // init the 'phase' (max-1) of the intermediate variable pointer
-		var s = new Array(o); // declare our intermediate variables array
-		var i; // general purpose local
-		var j; // general purpose local
-		var k = 0; // general purpose local
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-		// when our "uheprng" is initially invoked our PRNG state is initialized from the
-		// browser's own local PRNG. This is okay since although its generator might not
-		// be wonderful, it's useful for establishing large startup entropy for our usage.
-		var mash = new Mash(); // get a pointer to our high-performance "Mash" hash
+var _config = __webpack_require__(4);
 
-		// fill the array with initial mash hash values
-		for (i = 0; i < o; i++) {
-			s[i] = mash(Math.random());
-		}
+var _config2 = _interopRequireDefault(_config);
 
-		// this PRIVATE (internal access only) function is the heart of the multiply-with-carry
-		// (MWC) PRNG algorithm. When called it returns a pseudo-random number in the form of a
-		// 32-bit JavaScript fraction (0.0 to <1.0) it is a PRIVATE function used by the default
-		// [0-1] return function, and by the random 'string(n)' function which returns 'n'
-		// characters from 33 to 126.
-		var rawprng = function () {
-			if (++p >= o) {
-				p = 0;
-			}
-			var t = 1768863 * s[p] + c * 2.3283064365386963e-10; // 2^-32
-			return s[p] = t - (c = t | 0);
-		};
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-		// this EXPORTED function is the default function returned by this library.
-		// The values returned are integers in the range from 0 to range-1. We first
-		// obtain two 32-bit fractions (from rawprng) to synthesize a single high
-		// resolution 53-bit prng (0 to <1), then we multiply this by the caller's
-		// "range" param and take the "floor" to return a equally probable integer.
-		var random = function (range) {
-			return Math.floor(range * (rawprng() + (rawprng() * 0x200000 | 0) * 1.1102230246251565e-16)); // 2^-53
-		};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-		// this EXPORTED function 'string(n)' returns a pseudo-random string of
-		// 'n' printable characters ranging from chr(33) to chr(126) inclusive.
-		random.string = function (count) {
-			var i;
-			var s = '';
-			for (i = 0; i < count; i++) {
-				s += String.fromCharCode(33 + random(94));
-			}
-			return s;
-		};
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-		// this PRIVATE "hash" function is used to evolve the generator's internal
-		// entropy state. It is also called by the EXPORTED addEntropy() function
-		// which is used to pour entropy into the PRNG.
-		var hash = function () {
-			var args = Array.prototype.slice.call(arguments);
-			for (i = 0; i < args.length; i++) {
-				for (j = 0; j < o; j++) {
-					s[j] -= mash(args[i]);
-					if (s[j] < 0) {
-						s[j] += 1;
-					}
-				}
-			}
-		};
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-		// this EXPORTED "clean string" function removes leading and trailing spaces and non-printing
-		// control characters, including any embedded carriage-return (CR) and line-feed (LF) characters,
-		// from any string it is handed. this is also used by the 'hashstring' function (below) to help
-		// users always obtain the same EFFECTIVE uheprng seeding key.
-		random.cleanString = function (inStr) {
-			inStr = inStr.replace(/(^\s*)|(\s*$)/gi, ''); // remove any/all leading spaces
-			inStr = inStr.replace(/[\x00-\x1F]/gi, ''); // remove any/all control characters
-			inStr = inStr.replace(/\n /, '\n'); // remove any/all trailing spaces
-			return inStr; // return the cleaned up result
-		};
+var bullets = function (_Phaser$Group) {
+    _inherits(bullets, _Phaser$Group);
 
-		// this EXPORTED "hash string" function hashes the provided character string after first removing
-		// any leading or trailing spaces and ignoring any embedded carriage returns (CR) or Line Feeds (LF)
-		random.hashString = function (inStr) {
-			inStr = random.cleanString(inStr);
-			mash(inStr); // use the string to evolve the 'mash' state
-			for (i = 0; i < inStr.length; i++) { // scan through the characters in our string
-				k = inStr.charCodeAt(i); // get the character code at the location
-				for (j = 0; j < o; j++) { //	"mash" it into the UHEPRNG state
-					s[j] -= mash(k);
-					if (s[j] < 0) {
-						s[j] += 1;
-					}
-				}
-			}
-		};
+    function bullets(_ref) {
+        var game = _ref.game;
 
-		// this EXPORTED function allows you to seed the random generator.
-		random.seed = function (seed) {
-			if (typeof seed === 'undefined' || seed === null) {
-				seed = Math.random();
-			}
-			if (typeof seed !== 'string') {
-				seed = stringify(seed, function (key, value) {
-					if (typeof value === 'function') {
-						return (value).toString();
-					}
-					return value;
-				});
-			}
-			random.initState();
-			random.hashString(seed);
-		};
+        _classCallCheck(this, bullets);
 
-		// this handy exported function is used to add entropy to our uheprng at any time
-		random.addEntropy = function ( /* accept zero or more arguments */ ) {
-			var args = [];
-			for (i = 0; i < arguments.length; i++) {
-				args.push(arguments[i]);
-			}
-			hash((k++) + (new Date().getTime()) + args.join('') + Math.random());
-		};
+        var _this = _possibleConstructorReturn(this, (bullets.__proto__ || Object.getPrototypeOf(bullets)).call(this, game));
 
-		// if we want to provide a deterministic startup context for our PRNG,
-		// but without directly setting the internal state variables, this allows
-		// us to initialize the mash hash and PRNG's internal state before providing
-		// some hashing input
-		random.initState = function () {
-			mash(); // pass a null arg to force mash hash to init
-			for (i = 0; i < o; i++) {
-				s[i] = mash(' '); // fill the array with initial mash hash values
-			}
-			c = 1; // init our multiply-with-carry carry
-			p = o; // init our phase
-		};
+        _this.game = game;
 
-		// we use this (optional) exported function to signal the JavaScript interpreter
-		// that we're finished using the "Mash" hash function so that it can free up the
-		// local "instance variables" is will have been maintaining.  It's not strictly
-		// necessary, of course, but it's good JavaScript citizenship.
-		random.done = function () {
-			mash = null;
-		};
+        _this.enableBody = true;
+        _this.physicsBodyType = Phaser.Physics.ARCADE;
 
-		// if we called "uheprng" with a seed value, then execute random.seed() before returning
-		if (typeof seed !== 'undefined') {
-			random.seed(seed);
-		}
+        _this.createMultiple(50, 'bullet');
+        _this.children.map(function (a) {
+            a.scale.setTo(_config2.default.scale);
+        });
 
-		// Returns a random integer between 0 (inclusive) and range (exclusive)
-		random.range = function (range) {
-			return random(range);
-		};
+        _this.setAll('checkWorldBounds', true);
+        _this.setAll('outOfBoundsKill', true);
 
-		// Returns a random float between 0 (inclusive) and 1 (exclusive)
-		random.random = function () {
-			return random(Number.MAX_VALUE - 1) / Number.MAX_VALUE;
-		};
+        _this.fireRate = 200;
+        _this.nextFire = 0;
+        return _this;
+    }
 
-		// Returns a random float between min (inclusive) and max (exclusive)
-		random.floatBetween = function (min, max) {
-			return random.random() * (max - min) + min;
-		};
+    _createClass(bullets, [{
+        key: 'addToWold',
+        value: function addToWold(x, y, dx, dy) {
 
-		// Returns a random integer between min (inclusive) and max (inclusive)
-		random.intBetween = function (min, max) {
-			return Math.floor(random.random() * (max - min + 1)) + min;
-		};
+            if (this.game.time.now > this.nextFire && this.countDead() > 0) {
+                console.log('add bullet ' + (x + " " + y));
+                this.nextFire = this.game.time.now + this.fireRate;
 
-		// when our main outer "uheprng" function is called, after setting up our
-		// initial variables and entropic state, we return an "instance pointer"
-		// to the internal anonymous function which can then be used to access
-		// the uheprng's various exported functions.  As with the ".done" function
-		// above, we should set the returned value to 'null' once we're finished
-		// using any of these functions.
-		return random;
-	}());
-};
+                var bullet = this.getFirstDead();
+                bullet.reset(x, y);
 
-// Modification for use in node:
-uheprng.create = function (seed) {
-	return new uheprng(seed);
-};
-module.exports = uheprng;
+                //this.game.physics.arcade.moveToPointer(bullet, 600)
+                bullet.body.velocity.x = dx;
+                bullet.body.velocity.y = dy;
+            }
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            this.debug.text('Active Bullets: ' + this.countLiving() + ' / ' + this.total, 32, 32);
+            //this.debug.spriteInfo(sprite, 32, 450);    
+        }
+    }]);
 
+    return bullets;
+}(Phaser.Group);
+
+exports.default = bullets;
 
 /***/ }),
-/* 60 */
-/***/ (function(module, exports) {
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = stringify
-exports.getSerialize = serializer
+"use strict";
 
-function stringify(obj, replacer, spaces, cycleReplacer) {
-  return JSON.stringify(obj, serializer(replacer, cycleReplacer), spaces)
-}
 
-function serializer(replacer, cycleReplacer) {
-  var stack = [], keys = []
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
-  if (cycleReplacer == null) cycleReplacer = function(key, value) {
-    if (stack[0] === value) return "[Circular ~]"
-    return "[Circular ~." + keys.slice(0, stack.indexOf(value)).join(".") + "]"
-  }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-  return function(key, value) {
-    if (stack.length > 0) {
-      var thisPos = stack.indexOf(this)
-      ~thisPos ? stack.splice(thisPos + 1) : stack.push(this)
-      ~thisPos ? keys.splice(thisPos, Infinity, key) : keys.push(key)
-      if (~stack.indexOf(value)) value = cycleReplacer.call(this, key, value)
+var _config = __webpack_require__(4);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Monster = function (_Phaser$Sprite) {
+    _inherits(Monster, _Phaser$Sprite);
+
+    function Monster(_ref) {
+        var game = _ref.game,
+            x = _ref.x,
+            y = _ref.y,
+            asset = _ref.asset;
+
+        _classCallCheck(this, Monster);
+
+        var _this = _possibleConstructorReturn(this, (Monster.__proto__ || Object.getPrototypeOf(Monster)).call(this, game, x, y, asset));
+
+        _this.game = game;
+
+        _this.scale.setTo(_config2.default.scale);
+        _this.anchor.set(0.5);
+        // physics
+        _this.game.physics.arcade.enable(_this);
+        // settings        
+        _this.body.outOfBoundsKill = true;
+        // Animations
+        _this.animations.add('left', [0, 1, 2, 3], 10, true);
+        _this.animations.add('right', [5, 6, 7, 8], 10, true);
+        return _this;
     }
-    else stack.push(value)
 
-    return replacer == null ? value : replacer.call(this, key, value)
-  }
-}
+    _createClass(Monster, [{
+        key: 'update',
+        value: function update() {
+            this.body.velocity.x = -50;
+            this.animations.play('left');
+        }
+    }]);
 
+    return Monster;
+}(Phaser.Sprite);
+
+exports.default = Monster;
 
 /***/ })
 /******/ ]);

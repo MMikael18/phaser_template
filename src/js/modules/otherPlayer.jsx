@@ -1,3 +1,4 @@
+import config from '../utils/config'
 
 export default class otherPlayer extends Phaser.Sprite {
 
@@ -10,6 +11,8 @@ export default class otherPlayer extends Phaser.Sprite {
         this.tx = x
         this.ty = y
 
+        this.scale.setTo(config.scale);
+
         // physics
         this.game.physics.arcade.enable(this)
         this.game.stage.disableVisibilityChange = true
@@ -21,7 +24,6 @@ export default class otherPlayer extends Phaser.Sprite {
         this.animations.add('left', [0, 1, 2, 3], 10, true)
         this.animations.add('right', [5, 6, 7, 8], 10, true) 
         this.anim = 5
-
     }
 
     fire(call){

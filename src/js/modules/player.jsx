@@ -1,4 +1,3 @@
-
 import config from '../utils/config'
 
 export default class Player extends Phaser.Sprite {
@@ -8,13 +7,12 @@ export default class Player extends Phaser.Sprite {
         super(game, x, y, asset)
         this.game = game
         
-        this.scale.setTo(config.scale);
+        this.scale.setTo(config.scale)
+        this.anchor.set(0.5)
         // physics
         this.game.physics.arcade.enable(this)        
-
         // settings        
         this.body.collideWorldBounds = true
-
         // Animations
         this.animations.add('left', [0, 1, 2, 3], 10, true)
         this.animations.add('right', [5, 6, 7, 8], 10, true)
@@ -29,7 +27,6 @@ export default class Player extends Phaser.Sprite {
         }
 
         this.lookDirection = "LEFT"
-        //console.log(this.wasd.up)
     }
 
 
@@ -68,17 +65,22 @@ export default class Player extends Phaser.Sprite {
         if(this.body.velocity.x == 0 && this.body.velocity.y == 0) //  Stand still
         {
             this.animations.stop()
-            this.frame = 4
+            //this.frame = 4
             
             this.x = parseInt(this.x)
             this.y = parseInt(this.y)
         }
+  
+    }
 
+    fire(call){
+        if (this.game.input.activePointer.isDown)
+            call(this)
     }
 
     moving(call){        
         if(!this.body.velocity.isZero())
-            call()
+            call(this)
     }
 
 }

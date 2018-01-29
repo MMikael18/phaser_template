@@ -12,7 +12,8 @@ export default class Monster extends Phaser.Sprite {
         // physics
         this.game.physics.arcade.enable(this)        
         // settings        
-        this.body.outOfBoundsKill = true
+        this.checkWorldBounds = false
+        this.outOfBoundsKill = true
         // Animations
         this.animations.add('left', [0, 1, 2, 3], 10, true)
         this.animations.add('right', [5, 6, 7, 8], 10, true)
@@ -20,7 +21,11 @@ export default class Monster extends Phaser.Sprite {
 
     update() 
     {   
-        this.body.velocity.x = -50
+        if(this.x > 0){
+            this.checkWorldBounds = true
+        }
+
+        this.body.velocity.x = 50
         this.animations.play('left')
     }
 

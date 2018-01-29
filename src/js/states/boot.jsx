@@ -22,13 +22,13 @@ export default class Boot extends Phaser.State {
     create ()     
     {
         //console.log(config.getScale())
-        //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-        //this.scale.pageAlignHorizontally = true
-        //this.scale.pageAlignVertically = true
-        //this.scale.setScreenSize( true )
-        //this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
-        //this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
-        //this.game.scale.refresh()
+        // this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        // this.scale.pageAlignHorizontally = true
+        // this.scale.pageAlignVertically = true
+        // //this.scale.setScreenSize( true )
+        // this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL
+        // this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL
+        // this.game.scale.refresh()
 
         //let canvas_width = window.innerWidth * window.devicePixelRatio;
         //let canvas_height = window.innerHeight * window.devicePixelRatio;
@@ -38,6 +38,10 @@ export default class Boot extends Phaser.State {
 
         //this.ball = game.add.sprite((game.world.centerX), game.world.centerY, 'ball');
         //this.ball.scale.set(scale_ratio);
+
+        // this.scale.pageAlignHorizontally = true;
+        // this.scale.pageAlignVertically = true;
+        // this.scale.refresh();
 
         this.state.start('Menu')
     }

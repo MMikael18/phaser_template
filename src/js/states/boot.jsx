@@ -16,7 +16,10 @@ export default class Boot extends Phaser.State {
         this.load.image('bullet', 'assets/bullet.png')
 
         // Mosters
-        this.load.spritesheet('monster', 'assets/monster.png', 16, 16)        
+        this.load.spritesheet('monster', 'assets/monster.png', 16, 16)
+
+        // don't pause game if losing focus
+        this.stage.disableVisibilityChange = true;
     }
     
     create ()     
@@ -38,10 +41,6 @@ export default class Boot extends Phaser.State {
 
         //this.ball = game.add.sprite((game.world.centerX), game.world.centerY, 'ball');
         //this.ball.scale.set(scale_ratio);
-
-        // this.scale.pageAlignHorizontally = true;
-        // this.scale.pageAlignVertically = true;
-        // this.scale.refresh();
 
         this.state.start('Menu')
     }

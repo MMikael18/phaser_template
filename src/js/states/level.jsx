@@ -47,10 +47,6 @@ export default class Level extends Phaser.State {
         this.world.setBounds(0, 0, config.game_width, config.game_height)
         this.createGround(0, 0, config.game_width, config.game_height)
 
-        // this.scale.pageAlignHorizontally = true;
-        // this.scale.pageAlignVertically = true;
-        // this.scale.refresh();
-
         // create Spawnpoint        
         this.spawn = new Spawnpoint({
             game: this.game
@@ -135,7 +131,6 @@ export default class Level extends Phaser.State {
             }            
         })
         
-
         this.player.moving((e) => {
             let position = (({ x, y }) => ({ x, y }))(e)
             this.connect.emitPlayerMove(position)
@@ -163,15 +158,18 @@ export default class Level extends Phaser.State {
         this.scoreText.text = 'Score: ' + this.score
     }
 
-    render() {
-        //this.game.debug.inputInfo(350, 32);
-        //this.game.debug.spriteInfo(this.player, 350, 32);
+    render() 
+    {        
+        this.game.debug.text('Living: ' + this.spawn.countLiving() + 
+                             ' Dead: ' + this.spawn.countDead(), 32, 32) 
+        //this.game.debug.inputInfo(350, 32)
+        //this.game.debug.spriteInfo(this.player, 350, 32)
         //this.game.debug.cameraInfo(this.stage.game.camera, 32, 32)
         this.game.debug.spriteCoords(this.player, 32,  Number(this.game.camera.height) - 150)
 
         // let zone = this.game.camera.deadzone;
-        this.game.context.fillStyle = 'rgba(255,0,0,0.6)';
-        this.game.context.fillRect(0, 0, config.game_width, config.game_height);
+        // this.game.context.fillStyle = 'rgba(255,0,0,0.6)'
+        // this.game.context.fillRect(0, 0, config.game_width, config.game_height)
     }
     
     

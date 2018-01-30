@@ -25,7 +25,7 @@ export default class bullets extends Phaser.Group {
         
         if (this.game.time.now > this.nextFire && this.countDead() > 0)
         {
-            console.log(`add bullet ${x + " " + y}`)
+            //console.log(`add bullet ${x + " " + y}`)
             this.nextFire = this.game.time.now + this.fireRate
     
             let bullet = this.getFirstDead()    

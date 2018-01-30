@@ -111393,6 +111393,9 @@ var Boot = function (_Phaser$State) {
 
                         // Mosters
                         this.load.spritesheet('monster', 'assets/monster.png', 16, 16);
+
+                        // don't pause game if losing focus
+                        this.stage.disableVisibilityChange = true;
                 }
         }, {
                 key: 'create',
@@ -111414,10 +111417,6 @@ var Boot = function (_Phaser$State) {
 
                         //this.ball = game.add.sprite((game.world.centerX), game.world.centerY, 'ball');
                         //this.ball.scale.set(scale_ratio);
-
-                        // this.scale.pageAlignHorizontally = true;
-                        // this.scale.pageAlignVertically = true;
-                        // this.scale.refresh();
 
                         this.state.start('Menu');
                 }
@@ -111511,11 +111510,11 @@ var _otherPlayer = __webpack_require__(60);
 
 var _otherPlayer2 = _interopRequireDefault(_otherPlayer);
 
-var _spawnpoint = __webpack_require__(63);
+var _spawnpoint = __webpack_require__(61);
 
 var _spawnpoint2 = _interopRequireDefault(_spawnpoint);
 
-var _bullets = __webpack_require__(62);
+var _bullets = __webpack_require__(63);
 
 var _bullets2 = _interopRequireDefault(_bullets);
 
@@ -111574,10 +111573,6 @@ var Level = function (_Phaser$State) {
             // Create world        
             this.world.setBounds(0, 0, _config2.default.game_width, _config2.default.game_height);
             this.createGround(0, 0, _config2.default.game_width, _config2.default.game_height);
-
-            // this.scale.pageAlignHorizontally = true;
-            // this.scale.pageAlignVertically = true;
-            // this.scale.refresh();
 
             // create Spawnpoint        
             this.spawn = new _spawnpoint2.default({
@@ -111758,14 +111753,15 @@ var Level = function (_Phaser$State) {
     }, {
         key: 'render',
         value: function render() {
-            //this.game.debug.inputInfo(350, 32);
-            //this.game.debug.spriteInfo(this.player, 350, 32);
+            this.game.debug.text('Living: ' + this.spawn.countLiving() + ' Dead: ' + this.spawn.countDead(), 32, 32);
+            //this.game.debug.inputInfo(350, 32)
+            //this.game.debug.spriteInfo(this.player, 350, 32)
             //this.game.debug.cameraInfo(this.stage.game.camera, 32, 32)
             this.game.debug.spriteCoords(this.player, 32, Number(this.game.camera.height) - 150);
 
             // let zone = this.game.camera.deadzone;
-            this.game.context.fillStyle = 'rgba(255,0,0,0.6)';
-            this.game.context.fillRect(0, 0, _config2.default.game_width, _config2.default.game_height);
+            // this.game.context.fillStyle = 'rgba(255,0,0,0.6)'
+            // this.game.context.fillRect(0, 0, config.game_width, config.game_height)
         }
     }]);
 
@@ -115587,6 +115583,98 @@ var _config = __webpack_require__(2);
 
 var _config2 = _interopRequireDefault(_config);
 
+var _monster = __webpack_require__(62);
+
+var _monster2 = _interopRequireDefault(_monster);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Spawnpoint = function (_Phaser$Group) {
+    _inherits(Spawnpoint, _Phaser$Group);
+
+    function Spawnpoint(_ref) {
+        var game = _ref.game;
+
+        _classCallCheck(this, Spawnpoint);
+
+        var _this = _possibleConstructorReturn(this, (Spawnpoint.__proto__ || Object.getPrototypeOf(Spawnpoint)).call(this, game));
+
+        _this.game = game;
+
+        //this.createMultiple(40, 'monster')
+        for (var index = 0; index < 5; index++) {
+            var monster = new _monster2.default({
+                game: _this.game,
+                asset: 'monster'
+            });
+            _this.add(monster);
+            monster.kill();
+        }
+
+        _this.game.time.events.loop(Phaser.Timer.SECOND, _this.spawn, _this);
+        return _this;
+    }
+
+    _createClass(Spawnpoint, [{
+        key: 'spawn',
+        value: function spawn() {
+            var m = this.getFirstDead();
+            if (m === null) {
+                m = this.addMonster();
+            }
+            m.checkWorldBounds = false;
+            m.reset(-150, Math.floor(Math.random() * _config2.default.game_height + 1));
+            m.body.velocity.x = 40 + Math.floor(Math.random() * 40);
+            m.animations.play('right');
+        }
+    }, {
+        key: 'addMonster',
+        value: function addMonster() {
+            var monster = new _monster2.default({
+                game: this.game,
+                asset: 'monster'
+            });
+            this.add(monster);
+            return monster;
+        }
+    }, {
+        key: 'update',
+        value: function update() {
+            for (var key in this.children) {
+                var element = this.children[key];
+                if (element.x > 0) {
+                    element.checkWorldBounds = true;
+                }
+            }
+        }
+    }]);
+
+    return Spawnpoint;
+}(Phaser.Group);
+
+exports.default = Spawnpoint;
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _config = __webpack_require__(2);
+
+var _config2 = _interopRequireDefault(_config);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -115600,13 +115688,11 @@ var Monster = function (_Phaser$Sprite) {
 
     function Monster(_ref) {
         var game = _ref.game,
-            x = _ref.x,
-            y = _ref.y,
             asset = _ref.asset;
 
         _classCallCheck(this, Monster);
 
-        var _this = _possibleConstructorReturn(this, (Monster.__proto__ || Object.getPrototypeOf(Monster)).call(this, game, x, y, asset));
+        var _this = _possibleConstructorReturn(this, (Monster.__proto__ || Object.getPrototypeOf(Monster)).call(this, game, 0, 0, asset));
 
         _this.game = game;
 
@@ -115623,25 +115709,13 @@ var Monster = function (_Phaser$Sprite) {
         return _this;
     }
 
-    _createClass(Monster, [{
-        key: 'update',
-        value: function update() {
-            if (this.x > 0) {
-                this.checkWorldBounds = true;
-            }
-
-            this.body.velocity.x = 50;
-            this.animations.play('left');
-        }
-    }]);
-
     return Monster;
 }(Phaser.Sprite);
 
 exports.default = Monster;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115698,7 +115772,7 @@ var bullets = function (_Phaser$Group) {
         value: function addToWold(x, y, dx, dy) {
 
             if (this.game.time.now > this.nextFire && this.countDead() > 0) {
-                console.log('add bullet ' + (x + " " + y));
+                //console.log(`add bullet ${x + " " + y}`)
                 this.nextFire = this.game.time.now + this.fireRate;
 
                 var bullet = this.getFirstDead();
@@ -115721,67 +115795,6 @@ var bullets = function (_Phaser$Group) {
 }(Phaser.Group);
 
 exports.default = bullets;
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _config = __webpack_require__(2);
-
-var _config2 = _interopRequireDefault(_config);
-
-var _monster = __webpack_require__(61);
-
-var _monster2 = _interopRequireDefault(_monster);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Spawnpoint = function (_Phaser$Group) {
-    _inherits(Spawnpoint, _Phaser$Group);
-
-    function Spawnpoint(_ref) {
-        var game = _ref.game;
-
-        _classCallCheck(this, Spawnpoint);
-
-        var _this = _possibleConstructorReturn(this, (Spawnpoint.__proto__ || Object.getPrototypeOf(Spawnpoint)).call(this, game));
-
-        _this.game = game;
-
-        _this.monster = new _monster2.default({
-            game: _this.game,
-            x: _config2.default.game_width / 2,
-            y: _config2.default.game_height / 2,
-            asset: 'monster'
-        });
-        _this.game.add.existing(_this.monster);
-        return _this;
-    }
-
-    _createClass(Spawnpoint, [{
-        key: 'update',
-        value: function update() {}
-    }]);
-
-    return Spawnpoint;
-}(Phaser.Group);
-
-exports.default = Spawnpoint;
 
 /***/ })
 /******/ ]);
